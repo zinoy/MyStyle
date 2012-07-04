@@ -41,8 +41,7 @@
 			}
 			_backside.x = _backside.y = _itemwidth / 2;
 			addChild(_backside);
-			_backside.alpha = 0;
-			_backside.rotationY = -180;
+			_backside.scaleX = 0;
 			
 			//addEventListener(Event.ENTER_FRAME,ontemp);
 		}
@@ -70,10 +69,9 @@
 		
 		public function turnover(duration:Number=.4):void
 		{
-			//var tl:TimelineLite = new TimelineLite({onComplete:endaction});
-			TweenLite.to(_forntside, duration, {rotationY:180});
-			TweenLite.to(_backside, duration, {rotationY:0,onComplete:endaction});
-			TweenLite.delayedCall(duration*9/34,swapalpha);
+			var tl:TimelineLite = new TimelineLite({onComplete:endaction});
+			tl.append(new TweenLite(_forntside, duration/2, {scaleX:0}));
+			tl.append(new TweenLite(_backside, duration/2, {scaleX:1}));
 		}
 		
 		private function endaction():void
@@ -85,15 +83,9 @@
 			var t:DisplayObject = _backside;
 			_backside = _forntside;
 			_forntside = t;
-			_backside.rotationY = -180;
+			_backside.scaleX = 0;
 		}
-		
-		private function swapalpha():void
-		{
-			_forntside.alpha = 0;
-			_backside.alpha = 1;
-		}
-		
+				
 	}
 
 }

@@ -6,6 +6,7 @@
 	
 	import com.greensock.TweenLite;
 	import com.greensock.loading.*;
+	import com.greensock.layout.*;
 	
 	import evoque.display.PhotoItem;
 	import evoque.animate.FlipItem;
@@ -54,7 +55,7 @@
 				{
 					if (i == dimension.row-2 && j == dimension.column-1) continue;
 					var p:PhotoItem = new PhotoItem();
-					picloader.append(new ImageLoader("temp/heroes.jpg", {name:"obj"+squares.length, width:width, height:width, scaleMode:"proportionalInside", onComplete:p.complete}));
+					picloader.append(new ImageLoader("temp/heroes.jpg", {name:"obj"+squares.length, width:width, height:width, scaleMode:ScaleMode.PROPORTIONAL_INSIDE, onComplete:p.complete}));
 					var f:FlipItem = new FlipItem(p, null, width);
 					f.x = rect.x + j * width;
 					f.y = rect.y + i * width;
