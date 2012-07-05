@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<return>
+  <total>1</total>
+  <list>
+    <item>
+      <id>1</id>
+      <sina_uid>102135468</sina_uid>
+      <sina_name>kaka</sina_name>
+      <comment><![CDATA[你好吗]]></comment>
+      <img>2012070512355</img>
+      <type>2</type>
+    </item>
+    <item>
+      <id>2</id>
+      <sina_uid>152155662</sina_uid>
+      <sina_name>jiujiu</sina_name>
+      <comment><![CDATA[nsegw@zino kskeig]]></comment>
+      <img>20120705352215</img>
+      <type>1</type>
+    </item>
+  </list>
+</return>
