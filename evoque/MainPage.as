@@ -38,6 +38,17 @@
 		
 		private function addedToStage(e:Event):void
 		{
+			
+		}
+		
+		private function adjustPos(e:Event):void
+		{
+			panel.x = stage.stageWidth / 2;
+			panel.y = stage.stageHeight / 2;
+		}
+		
+		private function goGallery():void
+		{
 			var w:Number = stage.stageWidth;
 			var col:int = Math.floor(w / 100);
 			var width:Number = w / col;
@@ -73,12 +84,6 @@
 				var obj:FlipItem = squares[idxlist[x]];
 				TweenLite.delayedCall(x*interval+1, obj.turnover);
 			}
-		}
-		
-		private function adjustPos(e:Event):void
-		{
-			panel.x = stage.stageWidth / 2;
-			panel.y = stage.stageHeight / 2;
 		}
 		
 	}
