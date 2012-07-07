@@ -6,17 +6,15 @@
   <classTemplate>file:///C|/Documents and Settings/yuez/Local Settings/Application Data/Adobe/Flash CS5/zh_CN/Configuration/ActionScript 3.0/Templates/standardClass_as3.as</classTemplate>
   <classPath>.</classPath>
   <defaultApp>file:///D|/Works/Projects/flash/MyStyle/main.fla</defaultApp>
-  <rootURI>file:///D|/Works/Projects/flash/MyStyle/</rootURI>
+  <rootURI>file:///C|/GitHub/MyStyle/</rootURI>
   <flexSDK/>
   <sources editable="false"/>
   <libraries editable="false"/>
   <externalLibraries editable="false"/>
   <compileList editable="false"/>
   <recentFiles editable="false">
-    <uri label="MenuButtonBase.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/MenuButtonBase.as</uri>
-    <uri label="MainPage.as">file:///D|/Works/Projects/flash/MyStyle/evoque/MainPage.as</uri>
-    <uri label="main.fla">file:///D|/Works/Projects/flash/MyStyle/main.fla</uri>
-    <uri label="FlipItem.as">file:///D|/Works/Projects/flash/MyStyle/evoque/animate/FlipItem.as</uri>
+    <uri label="MenuButtonBase.as">file:///C|/GitHub/MyStyle/evoque/controls/MenuButtonBase.as</uri>
+    <uri label="main.fla">file:///C|/GitHub/MyStyle/main.fla</uri>
   </recentFiles>
   <locations editable="false"/>
 </projectDescription>
