@@ -1,10 +1,11 @@
 ﻿package evoque.common
 {
 
-	public static class Shared
+	public class Shared
 	{
 		
-		public const URL_BASE:String = "http://localhost/";
+		public static const API_SECRET:String = "";
+		public static const URL_BASE:String = "http://localhost:2103/";
 
 	}
 

@@ -1,5 +1,8 @@
 ﻿package evoque.common
 {
+	import flash.net.URLVariables;
+	
+	import com.adobe.crypto.SHA1;
 
 	public class Utility
 	{
@@ -29,7 +32,34 @@
 			}
 			return arr;
 		}
-
+		
+		public static function trim( s:String ):String
+		{
+			return s.replace( /^([\s|\t|\n]+)?(.*)([\s|\t|\n]+)?$/gm, "$2" );
+		}
+		
+		public static function hash(data:URLVariables):String
+		{
+			var list:Array = data.toString().split("&");
+			var keys:Array = new Array();
+			
+			for each (var key:String in list)
+			{
+				var parts:Array = key.split("=");
+				if (parts.length > 0)
+				{
+					keys.push(parts[0].toLowerCase());
+				}
+			}
+			keys.sort();
+			var str:String = "";
+			for each (var k:String in keys)
+			{
+				str += data[k];
+			}
+			return SHA1.hash(str + Shared.API_SECRET);
+		}
+		
 	}
 
 }
