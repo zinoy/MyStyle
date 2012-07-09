@@ -1,12 +1,11 @@
 ﻿package evoque.controls
 {
-	import flash.display.Sprite;
 	import flash.events.*;
 	
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
 
-	public class CloseButton extends Sprite
+	public class CloseButton extends ButtonBase
 	{
 
 		public function CloseButton()
@@ -16,8 +15,6 @@
 		
 		private function init():void
 		{
-			buttonMode = true;
-			mouseChildren = false;
 			hover.alpha = .2;
 			
 			addEventListener(MouseEvent.ROLL_OVER,over);

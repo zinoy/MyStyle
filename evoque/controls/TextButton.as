@@ -3,7 +3,7 @@
 	import flash.display.*;
 	import flash.events.*;
 	
-	public class TextButton extends Sprite
+	public class TextButton extends ButtonBase
 	{
 		private var line:Shape;
 		private var _color:uint;
@@ -16,9 +16,6 @@
 		
 		private function init():void
 		{
-			buttonMode = true;
-			mouseChildren = false;
-			
 			line = new Shape();
 			line.graphics.lineStyle(1,_color);
 			line.graphics.moveTo(0,0);

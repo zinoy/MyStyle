@@ -3,6 +3,7 @@
 	import flash.net.URLVariables;
 	
 	import com.adobe.crypto.SHA1;
+	import flash.utils.ByteArray;
 
 	public class Utility
 	{
@@ -57,7 +58,9 @@
 			{
 				str += data[k];
 			}
-			return SHA1.hash(str + Shared.API_SECRET);
+			var byteArr:ByteArray = new ByteArray();
+			byteArr.writeMultiByte(str + Shared.API_SECRET,"utf-8");
+			return SHA1.hashBytes(byteArr);
 		}
 		
 	}

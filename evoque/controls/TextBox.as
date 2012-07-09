@@ -3,7 +3,7 @@
 	import flash.display.*;
 	import flash.text.*;
 	
-	import evoque.common.Utility;
+	import evoque.common.*;
 
 	public class TextBox extends Sprite
 	{
@@ -37,9 +37,14 @@
 			return _input.text;
 		}
 		
+		public function set text(val:String):void
+		{
+			_input.text = val;
+		}
+		
 		public function set pattern(val:*):void
 		{
-			_exp = new RegExp(pattern);
+			_exp = new RegExp(val);
 		}
 		
 		public function get pattern():String
@@ -60,7 +65,7 @@
 			_input.displayAsPassword = val;
 		}
 		
-		public function isVaild():Boolean
+		public function get isVaild():int
 		{
 			input.border = false;
 			_input.textColor = 0;
@@ -69,28 +74,37 @@
 			{
 				if (Utility.trim(_input.text).length == 0)
 				{
-					return false;
+					return highlight(ErrorType.REQUIRE_VALUE);
 				}
 			}
 			if (_minLength>0)
 			{
 				if (Utility.trim(_input.text).length < _minLength)
 				{
-					return false;
+					return highlight(ErrorType.MINIMUM_LENGTH_REQUIRE);
 				}
 			}
 			if (_exp)
 			{
-				return _exp.test(Utility.trim(_input.text));
+				if (!_exp.test(Utility.trim(_input.text)))
+				{
+					return highlight(ErrorType.INCORRECT_FORMAT);
+				}
 			}
-			return true;
+			return 0;
 		}
 		
-		public function highlight():void
+		public function highlight(val:int=0):int
 		{
 			_input.border = true;
 			_input.textColor = 0xf84c00;
-			_input.setSelection(0,_input.length-1);
+			return val;
+		}
+		
+		public function setFocus():void
+		{
+			_input.setSelection(0,_input.text.length);
+			stage.focus = _input;
 		}
 		
 	}

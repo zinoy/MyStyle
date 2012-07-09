@@ -4,6 +4,7 @@
 	import flash.events.*;
 	import flash.geom.Rectangle;
 	import flash.net.*;
+	import flash.text.*;
 		
 	import evoque.common.*;
 
@@ -11,6 +12,7 @@
 	{
 		private var _adjustbtns:Vector.<SimpleButton>;
 		private var _tempurl:String;
+		private var _category:int = 0;
 
 		public function UploadAction()
 		{
@@ -25,6 +27,12 @@
 				toggleButtonStatus(btn);
 				btn.addEventListener(MouseEvent.CLICK,edit);
 			}
+			cate.alpha = .3;
+			weibo.alpha = .5;
+			weibo.btnupload.enabled = false;
+			weibo.btnat.enabled = false;
+			weibo.tbweibo.type = TextFieldType.DYNAMIC;
+			weibo.tbweibo.selectable = false;
 			btnBrowse.addEventListener(MouseEvent.CLICK,browse);
 		}
 		
@@ -43,12 +51,14 @@
 			var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
 			var d:URLVariables = new URLVariables();
 			d.ac = "upload";
-			d.bb = "kka";
 			d.hash = Utility.hash(d);
 			req.method = "post";
 			req.data = d;
 			file.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA,step2);
+			file.addEventListener(IOErrorEvent.IO_ERROR,error);
 			file.upload(req);
+			toggleButtonStatus(btnBrowse);
+			//add preloader
 		}
 		
 		private function step2(e:DataEvent):void
@@ -57,12 +67,34 @@
 			trace(xml);
 			if (xml.code == 0)
 			{
-				toggleButtonStatus(btnBrowse);
 				_tempurl = xml.url;
 				editor.addEventListener(Event.COMPLETE,startedit);
 				editor.load(_tempurl);
 			}
-			btnupload.addEventListener(MouseEvent.CLICK,save);
+			for (var i:int=1; i<5; i++)
+			{
+				cate["btnc_"+i].addEventListener(MouseEvent.CLICK,setcate);
+				cate["btnc_"+i].enable();
+			}
+			cate.alpha = 1;
+		}
+		
+		private function setcate(e:MouseEvent):void
+		{
+			var obj:Object = e.currentTarget;
+			trace(obj);
+			_category = Number(obj.name.split("_")[1]);
+			for (var i:int=1; i<5; i++)
+			{
+				cate["btnc_"+i].reset();
+			}
+			obj.select();
+			weibo.alpha = 1;
+			weibo.btnupload.enabled = true;
+			weibo.btnat.enabled = true;
+			weibo.btnupload.addEventListener(MouseEvent.CLICK,save);
+			weibo.tbweibo.type = TextFieldType.INPUT;
+			weibo.tbweibo.selectable = true;
 		}
 		
 		private function startedit(e:Event):void
@@ -101,6 +133,7 @@
 			var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
 			var d:URLVariables = new URLVariables();
 			d.ac = "savepic";
+			d.uid = Shared.UID;
 			d.url = _tempurl;
 			var rect:Rectangle = editor.square;
 			d.x = rect.x;
@@ -108,7 +141,8 @@
 			d.width = rect.width;
 			d.rotate = editor.angle;
 			d.ratio = editor.scale;
-			d.comment = Utility.trim(tbweibo.text);
+			d.comment = Utility.trim(weibo.tbweibo.text);
+			d.category = _category;
 			d.hash = Utility.hash(d);
 			req.data = d;
 			req.method = "post";

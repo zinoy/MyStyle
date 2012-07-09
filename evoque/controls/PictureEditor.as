@@ -54,7 +54,8 @@
 		
 		private function startdrag(e:MouseEvent):void
 		{
-			_dragstart.setTo(e.localX,e.localY);
+			_dragstart.x = e.localX;
+			_dragstart.y = e.localY;
 			addEventListener(MouseEvent.MOUSE_MOVE,drag);
 		}
 		
@@ -184,7 +185,8 @@
 			var r:Number = Math.sqrt(Math.pow(_offset.x,2) + Math.pow(_offset.y,2));
 			var a:Number = Math.atan2(_offset.y,_offset.x);
 			var b:Number = a + angle * Math.PI / 180;
-			_offset = new Point(Math.cos(b) * r,Math.sin(b) * r);
+			_offset.x = Math.cos(b) * r;
+			_offset.y = Math.sin(b) * r;
 			_img.x = _offset.x + _dragobj.width / 2;
 			_img.y = _offset.y + _dragobj.height / 2;
 			calculate();
