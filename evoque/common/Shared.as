@@ -9,6 +9,7 @@
 		public static const URL_BASE:String = "http://localhost:2103/";
 		
 		public static var UID:String = "";
+		public static var friends:Array;
 
 	}
 

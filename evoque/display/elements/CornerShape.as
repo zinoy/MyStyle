@@ -18,6 +18,7 @@
 		
 		private function added(e:Event):void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, added);
 			var dot:Shape = new Shape();
 			dot.mask = maskobj;
 			

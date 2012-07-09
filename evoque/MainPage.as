@@ -19,10 +19,12 @@
 	public class MainPage extends Sprite
 	{
 		private var _user:UserAction;
+		private var _upload:UploadAction;
 		private var _picpanel:Sprite;
 		private var _squares:Vector.<FlipItem>;
 		private var _dimension:SquareSize;
 		private var _picloader:LoaderMax;
+		private var _uploadPicAfterLogin:Boolean = false;
 
 		public function MainPage()
 		{
@@ -34,12 +36,14 @@
 			stage.align = StageAlign.TOP_LEFT;//will be removed
 			
 			_user = new UserAction();
+			_upload = new UploadAction();
 			_picpanel = new Sprite();
 			_squares = new Vector.<FlipItem>();
 			_picloader = new LoaderMax({name:"picQueue"});
 			
 			addEventListener(Event.ADDED_TO_STAGE,addedToStage);
 			stage.addEventListener(Event.RESIZE,adjustPos);
+			btnupload.addEventListener(MouseEvent.CLICK,goupload);
 			mainLogin.addEventListener(MouseEvent.CLICK,gologin);
 			mainReg.addEventListener(MouseEvent.CLICK,goreg);
 			_user.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
@@ -58,6 +62,26 @@
 			{
 				removeChild(mainLogin);
 				removeChild(mainReg);
+				if (_uploadPicAfterLogin)
+				{
+					_uploadPicAfterLogin = false;
+					goupload(null);
+				}
+			}
+		}
+		
+		private function goupload(e:MouseEvent):void
+		{
+			if (Shared.UID != "")
+			{
+				addChild(_upload);
+				_upload.alpha = 0;
+				TweenLite.to(_upload, .4, {alpha:1,ease:Quad.easeOut});
+			}
+			else
+			{
+				gologin(null);
+				_uploadPicAfterLogin = true;
 			}
 		}
 		
