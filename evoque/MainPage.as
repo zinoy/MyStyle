@@ -5,6 +5,7 @@
 	import flash.geom.Rectangle;
 	import flash.utils.*;
 	
+	import com.asual.swfaddress.SWFAddress;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
 	import com.greensock.loading.*;
@@ -34,7 +35,6 @@
 		private function init():void
 		{
 			_user = new UserAction();
-			_upload = new UploadAction();
 			_picpanel = new Sprite();
 			_squares = new Vector.<FlipItem>();
 			_picloader = new LoaderMax({name:"picQueue"});
@@ -44,12 +44,22 @@
 			mainLogin.addEventListener(MouseEvent.CLICK,gologin);
 			mainReg.addEventListener(MouseEvent.CLICK,goreg);
 			_user.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
-			_upload.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
 		}
 		
 		private function addedToStage(e:Event):void
 		{
 			stage.addEventListener(Event.RESIZE,adjustPos);
+			SWFAddress.onChange = swfchange;
+		}
+		
+		private function swfchange():void
+		{
+			var val:Array = SWFAddress.getPathNames();
+			trace(val);
+			if (val[0] == "showroom")
+			{
+				goGallery();
+			}
 		}
 		
 		private function closepanel(e:ActionEvent):void
@@ -70,6 +80,8 @@
 		
 		private function goupload(e:MouseEvent):void
 		{
+			_upload = new UploadAction();
+			_upload.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
 			if (Shared.UID != "")
 			{
 				addChild(_upload);

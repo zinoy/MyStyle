@@ -14,6 +14,7 @@
 
 	public class UploadAction extends Sprite
 	{
+		private var _isfirst:Boolean = true;
 		private var _adjustbtns:Vector.<SimpleButton>;
 		private var _tempurl:String;
 		private var _category:int = 0;
@@ -86,15 +87,18 @@
 			if (xml.code == 0)
 			{
 				_tempurl = xml.url;
-				editor.addEventListener(Event.COMPLETE,startedit);
+				if (_isfirst)
+					editor.addEventListener(Event.COMPLETE,startedit);
 				editor.load(_tempurl);
 			}
 			for (var i:int=1; i<5; i++)
 			{
-				cate["btnc_"+i].addEventListener(MouseEvent.CLICK,setcate);
+				if (_isfirst)
+					cate["btnc_"+i].addEventListener(MouseEvent.CLICK,setcate);
 				cate["btnc_"+i].enable();
 			}
 			cate.alpha = 1;
+			_isfirst = false;
 		}
 		
 		private function setcate(e:MouseEvent):void

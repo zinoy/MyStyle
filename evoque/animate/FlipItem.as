@@ -34,7 +34,7 @@
 			{
 				var q:Number = Math.PI / 4;
 				var bg:Shape = new Shape();
-				bg.graphics.beginGradientFill(GradientType.LINEAR, [0x888888, 0x222222], [1, 1], [0, 255], new Matrix(Math.cos(q), Math.sin(q), Math.sin(q)*-1, Math.cos(q)));
+				bg.graphics.beginGradientFill(GradientType.LINEAR, [0x3e3e3e, 0x0c0c0c], [1, 1], [0, 255], new Matrix(Math.cos(q), Math.sin(q), Math.sin(q)*-1, Math.cos(q)));
 				bg.graphics.drawRect(_itemwidth/2*-1,_itemwidth/2*-1,_itemwidth,_itemwidth);
 				bg.graphics.endFill();
 				_backside = bg;

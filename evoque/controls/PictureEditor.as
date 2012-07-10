@@ -16,6 +16,7 @@
 	{
 		private const ZOOM_LEVEL:int = 6;
 		
+		private var _defimg:DisplayObject;
 		private var _img:ContentDisplay;
 		private var _dragstart:Point;
 		private var _dragrect:Rectangle;
@@ -96,12 +97,12 @@
 		{
 			var loader:ImageLoader = ImageLoader(e.target);
 			_img = loader.content as ContentDisplay;
-			var def:DisplayObject = getChildAt(0);
+			_defimg = getChildAt(0);
 			var msk:Shape = new Shape();
 			msk.graphics.beginFill(0x00ff00,0);
-			msk.graphics.drawRect(0,0,def.width,def.height);
+			msk.graphics.drawRect(0,0,_defimg.width,_defimg.height);
 			msk.graphics.endFill();
-			removeChild(def);
+			_defimg.alpha = 0;
 			_img.mask = msk;
 			addChild(msk);
 			fitscreen(_img,msk.width);
@@ -114,7 +115,7 @@
 trace(Math.sin(Math.PI));
 			_dragobj = new Sprite();
 			_dragobj.graphics.beginFill(0x00ff00);
-			_dragobj.graphics.drawRect(0,0,def.width,def.height);
+			_dragobj.graphics.drawRect(0,0,_defimg.width,_defimg.height);
 			_dragobj.graphics.endFill();
 			addChild(_dragobj);
 			_dragobj.alpha = 0;
@@ -233,7 +234,7 @@ trace(Math.sin(Math.PI));
 		{
 			return _img.scaleX;
 		}
-				
+		
 	}
 
 }
