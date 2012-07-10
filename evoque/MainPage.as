@@ -33,8 +33,6 @@
 		
 		private function init():void
 		{
-			stage.align = StageAlign.TOP_LEFT;//will be removed
-			
 			_user = new UserAction();
 			_upload = new UploadAction();
 			_picpanel = new Sprite();
@@ -42,26 +40,26 @@
 			_picloader = new LoaderMax({name:"picQueue"});
 			
 			addEventListener(Event.ADDED_TO_STAGE,addedToStage);
-			stage.addEventListener(Event.RESIZE,adjustPos);
 			btnupload.addEventListener(MouseEvent.CLICK,goupload);
 			mainLogin.addEventListener(MouseEvent.CLICK,gologin);
 			mainReg.addEventListener(MouseEvent.CLICK,goreg);
 			_user.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
+			_upload.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
 		}
 		
 		private function addedToStage(e:Event):void
 		{
-			
+			stage.addEventListener(Event.RESIZE,adjustPos);
 		}
 		
 		private function closepanel(e:ActionEvent):void
 		{
 			var obj:DisplayObject = e.currentTarget as DisplayObject;
 			removeChild(obj);
-			if (Shared.UID != "")
+			if (Shared.UID != "" && mainLogin.parent != null)
 			{
-				removeChild(mainLogin);
-				removeChild(mainReg);
+				TweenLite.to(mainLogin, .1, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[mainLogin]});
+				TweenLite.to(mainReg, .1, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[mainReg]});
 				if (_uploadPicAfterLogin)
 				{
 					_uploadPicAfterLogin = false;

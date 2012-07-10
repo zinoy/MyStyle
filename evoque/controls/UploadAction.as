@@ -5,14 +5,19 @@
 	import flash.geom.Rectangle;
 	import flash.net.*;
 	import flash.text.*;
+	
+	import com.greensock.TweenLite;
+	import com.greensock.easing.*;
 		
 	import evoque.common.*;
+	import evoque.events.ActionEvent;
 
 	public class UploadAction extends Sprite
 	{
 		private var _adjustbtns:Vector.<SimpleButton>;
 		private var _tempurl:String;
 		private var _category:int = 0;
+		private var _friends:FriendsList;
 
 		public function UploadAction()
 		{
@@ -31,8 +36,10 @@
 			weibo.alpha = .5;
 			weibo.btnupload.enabled = false;
 			weibo.btnat.enabled = false;
+			weibo.tbweibo.text = "";
 			weibo.tbweibo.type = TextFieldType.DYNAMIC;
 			weibo.tbweibo.selectable = false;
+			btnClose.addEventListener(MouseEvent.CLICK,closepanel);
 			btnBrowse.addEventListener(MouseEvent.CLICK,browse);
 		}
 		
@@ -42,6 +49,17 @@
 			file.addEventListener(Event.SELECT,upload);
 			var imageType:Array = [new FileFilter("图片文件 (*.jpg, *.gif, *.png)", "*.jpg;*.jpeg;*.gif;*.png")];
 			file.browse(imageType);
+		}
+		
+		private function closepanel(e:MouseEvent):void
+		{
+			TweenLite.to(this, .4, {alpha:0,ease:Quad.easeOut,onComplete:closed});
+		}
+		
+		private function closed():void
+		{
+			var evt:ActionEvent = new ActionEvent(ActionEvent.CLOSE_PANEL);
+			dispatchEvent(evt);
 		}
 		
 		private function upload(e:Event):void
@@ -92,9 +110,14 @@
 			weibo.alpha = 1;
 			weibo.btnupload.enabled = true;
 			weibo.btnat.enabled = true;
+			weibo.btnat.addEventListener(MouseEvent.CLICK,togglefriends);
 			weibo.btnupload.addEventListener(MouseEvent.CLICK,save);
 			weibo.tbweibo.type = TextFieldType.INPUT;
 			weibo.tbweibo.selectable = true;
+			_friends = new FriendsList();
+			_friends.addEventListener(ActionEvent.ITEM_SELECTED,addfriend);
+			_friends.x = 286.5;
+			_friends.y = 101.45;
 		}
 		
 		private function startedit(e:Event):void
@@ -142,7 +165,7 @@
 			d.rotate = editor.angle;
 			d.ratio = editor.scale;
 			d.comment = Utility.trim(weibo.tbweibo.text);
-			d.category = _category;
+			d.category = "f" + _category;
 			d.hash = Utility.hash(d);
 			req.data = d;
 			req.method = "post";
@@ -152,10 +175,26 @@
 			loader.load(req);			
 		}
 		
+		private function addfriend(e:ActionEvent):void
+		{
+			var idx:int = weibo.tbweibo.selectionBeginIndex;
+			if (weibo.tbweibo.text.length + e.text.length + 2 - (weibo.tbweibo.selectionEndIndex - idx) > 140)
+				return;
+			var org:String = weibo.tbweibo.text;
+			weibo.tbweibo.text = org.substring(0,weibo.tbweibo.selectionBeginIndex) + "@" + e.text + " " + org.substring(weibo.tbweibo.selectionEndIndex);
+			var nidx:int = idx + e.text.length + 2;
+			weibo.tbweibo.setSelection(nidx,nidx);
+			stage.focus = weibo.tbweibo;
+			//togglefriends(null);
+		}
+		
 		private function end(e:Event):void
 		{
 			var loader:URLLoader = URLLoader(e.target);
-			trace(loader.data);
+			var xml:XML = XML(loader.data);
+			trace(xml);
+			
+			//show success
 		}
 		
 		private function error(e:IOErrorEvent):void
@@ -176,6 +215,18 @@
 				btn.alpha = 1;
 				btn.enabled = true;
 				btn.mouseEnabled = true;
+			}
+		}
+		
+		private function togglefriends(e:MouseEvent):void
+		{
+			if (_friends.parent != null)
+			{
+				weibo.removeChild(_friends);
+			}
+			else
+			{
+				weibo.addChild(_friends);
 			}
 		}
 		

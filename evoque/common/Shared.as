@@ -8,7 +8,7 @@
 		public static const APP_KEY:String = "1084507655";
 		public static const URL_BASE:String = "http://localhost:2103/";
 		
-		public static var UID:String = "";
+		public static var UID:String = "1146950887";
 		public static var friends:Array;
 
 	}

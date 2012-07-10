@@ -14,12 +14,14 @@
 
 	public class PictureEditor extends Sprite
 	{
+		private const ZOOM_LEVEL:int = 6;
+		
 		private var _img:ContentDisplay;
 		private var _dragstart:Point;
 		private var _dragrect:Rectangle;
 		private var _dragobj:Sprite;
 		private var _zoom:int = 0;
-		private var _step:Number;
+		private var _step:Array;
 		private var _offset:Point;
 
 		public function PictureEditor()
@@ -38,7 +40,6 @@
             dispatcher.addEventListener(MouseEvent.ROLL_OVER,over);
 			dispatcher.addEventListener(MouseEvent.ROLL_OUT,out);
 			dispatcher.addEventListener(MouseEvent.MOUSE_DOWN,startdrag);
-			dispatcher.addEventListener(MouseEvent.MOUSE_UP,stopdrag);
         }
 		
 		private function over(e:MouseEvent):void
@@ -49,7 +50,7 @@
 		private function out(e:MouseEvent):void
 		{
 			Mouse.cursor = MouseCursor.AUTO;
-			stopdrag(null);
+			//stopdrag(null);
 		}
 		
 		private function startdrag(e:MouseEvent):void
@@ -57,10 +58,12 @@
 			_dragstart.x = e.localX;
 			_dragstart.y = e.localY;
 			addEventListener(MouseEvent.MOUSE_MOVE,drag);
+			stage.addEventListener(MouseEvent.MOUSE_UP,stopdrag);
 		}
 		
 		private function stopdrag(e:MouseEvent):void
 		{
+			stage.removeEventListener(MouseEvent.MOUSE_UP,stopdrag);
 			removeEventListener(MouseEvent.MOUSE_MOVE,drag);
 			_offset.x = _img.x - _dragobj.width / 2;
 			_offset.y = _img.y - _dragobj.height / 2;
@@ -103,8 +106,12 @@
 			addChild(msk);
 			fitscreen(_img,msk.width);
 			
-			_step = (1 - _img.scaleX) / 5;
-
+			_step = [_img.scaleX];
+			for (var i:int=1; i<ZOOM_LEVEL; i++)
+			{
+				_step.push((1 - Math.cos(Math.PI / 2 / (ZOOM_LEVEL - 1) * i)) / 1 * (1 - _img.scaleX) + _img.scaleX);
+			}
+trace(Math.sin(Math.PI));
 			_dragobj = new Sprite();
 			_dragobj.graphics.beginFill(0x00ff00);
 			_dragobj.graphics.drawRect(0,0,def.width,def.height);
@@ -114,7 +121,10 @@
 
 			center(_img);
 			calculate();
-			configureListeners(_dragobj);
+			if (_img.height > msk.height || _img.width > msk.width)
+			{
+				configureListeners(_dragobj);
+			}
 			var evt:Event = new Event(Event.COMPLETE);
 			dispatchEvent(evt);
 		}
@@ -152,10 +162,10 @@
 		
 		public function zoomin():void
 		{
-			if (_zoom < 4)
+			if (_zoom < ZOOM_LEVEL - 1)
 			{
 				_zoom++;
-				_img.scaleX = _img.scaleY = _img.scaleX + _step;
+				_img.scaleX = _img.scaleY = _step[_zoom];
 				calculate();
 			}
 		}
@@ -165,7 +175,7 @@
 			if (_zoom > 0)
 			{
 				_zoom--;
-				_img.scaleX = _img.scaleY = _img.scaleX - _step;
+				_img.scaleX = _img.scaleY = _step[_zoom];
 				calculate();
 				if (_img.x < _dragrect.left)
 					_img.x = _dragrect.left;

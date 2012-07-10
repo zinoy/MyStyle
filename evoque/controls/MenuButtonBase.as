@@ -20,6 +20,19 @@
 			return _active;
 		}
 		
+		public function set active(val:Boolean):void
+		{
+			_active = val;
+			if (_active)
+			{
+				TweenLite.to(hover, .2, {alpha:1, ease:Quad.easeOut});
+			}
+			else
+			{
+				TweenLite.to(hover, .2, {alpha:0, ease:Quad.easeOut});
+			}
+		}
+		
 		public function reset():void
 		{
 			_active = false;
@@ -55,7 +68,7 @@
 			_active = true;
 			TweenLite.to(hover, .1, {alpha:1, ease:Quad.easeOut});
 		}
-
+		
 	}
 
 }

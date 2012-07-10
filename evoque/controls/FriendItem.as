@@ -27,6 +27,11 @@
 			addEventListener(MouseEvent.ROLL_OUT,out);
 		}
 		
+		public function get text():String
+		{
+			return label.text;
+		}
+		
 		private function over(e:MouseEvent):void
 		{
 			_hover.alpha = 1;

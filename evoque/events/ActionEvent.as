@@ -5,11 +5,24 @@
 
 	public class ActionEvent extends Event
 	{
-		public static var CLOSE_PANEL:String = "closePanel";
+		public static const CLOSE_PANEL:String = "closePanel";
+		public static const ITEM_SELECTED:String = "itemSelected";
+		
+		private var _text:String;
 		
 		public function ActionEvent(type:String,bubbles:Boolean=false,cancelable:Boolean=false)
 		{
 			super(type,bubbles,cancelable);
+		}
+		
+		public function get text():String
+		{
+			return _text;
+		}
+		
+		public function set text(val:String):void
+		{
+			_text = val;
 		}
 
 	}

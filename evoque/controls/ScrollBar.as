@@ -3,6 +3,8 @@
 	import flash.display.*;
 	import flash.events.*;
 	import flash.geom.Rectangle;
+	
+	import evoque.events.ScrollEvent;
 
 	public class ScrollBar extends Sprite
 	{
@@ -26,22 +28,39 @@
 			btn.y = 1;
 			btn.buttonMode = true;
 			btn.addEventListener(MouseEvent.MOUSE_DOWN,startdrag);
-			btn.addEventListener(MouseEvent.MOUSE_UP,stopdrag);
+			//btn.addEventListener(MouseEvent.MOUSE_UP,stopdrag);
 		}
 		
 		private function startdrag(e:MouseEvent):void
 		{
+			addEventListener(Event.ENTER_FRAME,updatedrag);
+			stage.addEventListener(MouseEvent.MOUSE_UP,stopdrag);
 			btn.startDrag(false,_rect);
 		}
 		
 		private function stopdrag(e:MouseEvent):void
 		{
+			stage.removeEventListener(MouseEvent.MOUSE_UP,stopdrag);
+			removeEventListener(Event.ENTER_FRAME,updatedrag);
 			btn.stopDrag();
 		}
 		
-		private function get scrollTop():Number
+		private function updatedrag(e:Event):void
 		{
-			return (btn.y + 1) / _rect.height;
+			var evt:ScrollEvent = new ScrollEvent(ScrollEvent.SCROLL_UPDATE);
+			evt.top = this.pos;
+			dispatchEvent(evt);
+		}
+		
+		public function get pos():Number
+		{
+			var p:Number = (btn.y - 1) / _rect.height;
+			return p;
+		}
+		
+		public function set pos(val:Number):void
+		{
+			btn.y = val * _rect.height + 1;
 		}
 		
 	}
