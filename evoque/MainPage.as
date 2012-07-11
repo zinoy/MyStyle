@@ -2,7 +2,7 @@
 {
 	import flash.display.*;
 	import flash.events.*;
-	import flash.geom.Rectangle;
+	import flash.geom.*;
 	import flash.utils.*;
 	
 	import com.asual.swfaddress.SWFAddress;
@@ -16,11 +16,10 @@
 	import evoque.common.*;
 	import evoque.controls.*;
 	import evoque.events.*;
+	import evoque.display.ScreenBlock;
 
 	public class MainPage extends Sprite
 	{
-		private var _user:UserAction;
-		private var _upload:UploadAction;
 		private var _picpanel:Sprite;
 		private var _squares:Vector.<FlipItem>;
 		private var _dimension:SquareSize;
@@ -34,16 +33,12 @@
 		
 		private function init():void
 		{
-			_user = new UserAction();
 			_picpanel = new Sprite();
 			_squares = new Vector.<FlipItem>();
 			_picloader = new LoaderMax({name:"picQueue"});
 			
 			addEventListener(Event.ADDED_TO_STAGE,addedToStage);
-			btnupload.addEventListener(MouseEvent.CLICK,goupload);
-			mainLogin.addEventListener(MouseEvent.CLICK,gologin);
-			mainReg.addEventListener(MouseEvent.CLICK,goreg);
-			_user.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
+			home.addEventListener(ActionEvent.SHOW_GALLERY,goGallery);
 		}
 		
 		private function addedToStage(e:Event):void
@@ -55,89 +50,56 @@
 		private function swfchange():void
 		{
 			var val:Array = SWFAddress.getPathNames();
-			trace(val);
 			if (val[0] == "showroom")
 			{
-				goGallery();
+				goGallery(null);
 			}
-		}
-		
-		private function closepanel(e:ActionEvent):void
-		{
-			var obj:DisplayObject = e.currentTarget as DisplayObject;
-			removeChild(obj);
-			if (Shared.UID != "" && mainLogin.parent != null)
-			{
-				TweenLite.to(mainLogin, .1, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[mainLogin]});
-				TweenLite.to(mainReg, .1, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[mainReg]});
-				if (_uploadPicAfterLogin)
-				{
-					_uploadPicAfterLogin = false;
-					goupload(null);
-				}
-			}
-		}
-		
-		private function goupload(e:MouseEvent):void
-		{
-			_upload = new UploadAction();
-			_upload.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
-			if (Shared.UID != "")
-			{
-				addChild(_upload);
-				_upload.alpha = 0;
-				TweenLite.to(_upload, .4, {alpha:1,ease:Quad.easeOut});
-			}
-			else
-			{
-				gologin(null);
-				_uploadPicAfterLogin = true;
-			}
-		}
-		
-		private function gologin(e:MouseEvent):void
-		{
-			_user.showpanel();
-			addChild(_user);
-			_user.alpha = 0;
-			TweenLite.to(_user, .4, {alpha:1,ease:Quad.easeOut});
-		}
-		
-		private function goreg(e:MouseEvent):void
-		{
-			_user.showpanel("reg");
-			addChild(_user);
-			_user.alpha = 0;
-			TweenLite.to(_user, .4, {alpha:1,ease:Quad.easeOut});
 		}
 		
 		private function adjustPos(e:Event):void
 		{
-			_picpanel.x = stage.stageWidth / 2;
-			_picpanel.y = stage.stageHeight / 2;
+			_picpanel.x = 1000 / 2;
+			_picpanel.y = 600 / 2;
 		}
 		
-		private function goGallery():void
+		private function goGallery(e:ActionEvent):void
 		{
+			var sc:BitmapData = new BitmapData(stage.stageWidth,stage.stageHeight,true,0);
+			sc.draw(stage);
+			var shot:Bitmap = new Bitmap(sc);
+			
 			var w:Number = stage.stageWidth;
 			var col:int = Math.floor(w / 100);
 			var width:Number = w / col;
-			var row:int = Math.floor(stage.stageHeight / width);
+			trace("width:",width);
+			var row:int = Math.floor(stage.stageHeight / width) + 2;
 			_dimension = new SquareSize(col, row);
+			var offset:Number = ((_dimension.row - 2) * width - stage.stageHeight) / 2;
 			var rect:Rectangle = new Rectangle();
 			rect.width = col * width;
 			rect.height = row * width;
 			rect.x = rect.width / 2 * -1;
 			rect.y = rect.height / 2 * -1;
+			trace(rect);
+			trace(offset);
 						
 			for (var i:int=0; i<_dimension.row; i++)
 			{
 				for (var j:int=0; j<_dimension.column; j++)
 				{
-					if (i == _dimension.row-2 && j == _dimension.column-1) continue;
-					var p:PhotoItem = new PhotoItem();
+					//if (i == _dimension.row-2 && j == _dimension.column-1) continue;
+					var s:ScreenBlock = new ScreenBlock(sc,width,new Point(j,i),offset);
+					var p:PhotoItem = new PhotoItem(1);
 					_picloader.append(new ImageLoader("temp/heroes.jpg", {name:"obj"+_squares.length, width:width, height:width, scaleMode:ScaleMode.PROPORTIONAL_INSIDE, onComplete:p.complete}));
-					var f:FlipItem = new FlipItem(p, null, width);
+					var f:FlipItem;
+					if (i > 0 && i < _dimension.row - 1)
+					{
+						f = new FlipItem(s,p,width);
+					}
+					else
+					{
+						f = new FlipItem(s,null,width);
+					}
 					f.x = rect.x + j * width;
 					f.y = rect.y + i * width;
 					_picpanel.addChild(f);
@@ -145,6 +107,10 @@
 				}
 			}
 			_picloader.load();
+			while (numChildren > 0)
+			{
+				removeChildAt(0);
+			}
 			addChild(_picpanel);
 			adjustPos(null);
 			var idxlist:Array = Utility.shuffle(Utility.fill(_squares.length));

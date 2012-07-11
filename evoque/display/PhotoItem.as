@@ -10,16 +10,42 @@
 	public class PhotoItem extends Sprite
 	{
 		private var _bitmap:Bitmap;
-		private var _category:String;
+		private var _category:Shape;
 		
-		public function PhotoItem(category=null)
+		public function PhotoItem(category:int=0)
 		{
-			init();
+			init(category);
 		}
 		
-		private function init():void
+		private function init(cate:int):void
 		{
-			
+			if (cate > 0)
+			{
+				_category = new Shape();
+				var color:uint;
+				switch (cate)
+				{
+					case 1:
+						color = 0x49dc31;
+						break;
+					case 2:
+						color = 0xff0000;
+						break;
+					case 3:
+						color = 0x02c1ff;
+						break;
+					case 4:
+						color = 0xff00ea;
+					default:
+						break;
+				}
+				_category.graphics.beginFill(color);
+				_category.graphics.moveTo(0,0);
+				_category.graphics.lineTo(10,0);
+				_category.graphics.lineTo(0,10);
+				_category.graphics.lineTo(0,0);
+				_category.graphics.endFill();
+			}
 		}
 		
 		public function get content():Bitmap
@@ -36,7 +62,8 @@
 			_bitmap.x = _bitmap.width / 2 * -1
 			_bitmap.y = _bitmap.x;
 			addChild(_bitmap);
-			
+			addChild(_category);
+			_category.x = _category.y = _bitmap.x;
 			//remove preloader mark
 		}
 				

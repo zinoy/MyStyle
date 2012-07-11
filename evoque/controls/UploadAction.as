@@ -197,8 +197,16 @@
 			var loader:URLLoader = URLLoader(e.target);
 			var xml:XML = XML(loader.data);
 			trace(xml);
-			
-			//show success
+			if (xml.code == 0)
+			{
+				TweenLite.to(this, .4, {alpha:0,ease:Quad.easeOut,onComplete:success});
+			}
+		}
+		
+		private function success():void
+		{
+			var evt:ActionEvent = new ActionEvent(ActionEvent.SHOW_SUCCESS);
+			dispatchEvent(evt);
 		}
 		
 		private function error(e:IOErrorEvent):void

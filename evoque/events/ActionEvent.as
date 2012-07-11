@@ -6,6 +6,9 @@
 	public class ActionEvent extends Event
 	{
 		public static const CLOSE_PANEL:String = "closePanel";
+		public static const SHOW_SUCCESS:String = "showSuccess";
+		public static const SHOW_GALLERY:String = "showGallery";
+		public static const UPLOAD_MORE:String = "uploadMore";
 		public static const ITEM_SELECTED:String = "itemSelected";
 		
 		private var _text:String;
