@@ -66,6 +66,18 @@
 			_category.x = _category.y = _bitmap.x;
 			//remove preloader mark
 		}
+		
+		public function setpic(obj:ContentDisplay):void
+		{
+			_bitmap = obj.rawContent as Bitmap;
+			//_bitmap.smoothing = true;
+			_bitmap.x = _bitmap.width / 2 * -1
+			_bitmap.y = _bitmap.x;
+			addChild(_bitmap);
+			addChild(_category);
+			_category.x = _category.y = _bitmap.x;
+			//remove preloader mark
+		}
 				
 	}
 

@@ -37,6 +37,11 @@
 			return _col * _row;
 		}
 		
+		public function get contentLength():int
+		{
+			return _col * (_row - 2);
+		}
+		
 	}
 
 }

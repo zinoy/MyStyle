@@ -169,7 +169,7 @@
 			d.rotate = editor.angle;
 			d.ratio = editor.scale;
 			d.comment = Utility.trim(weibo.tbweibo.text);
-			d.category = "f" + _category;
+			d.category = _category;
 			d.hash = Utility.hash(d);
 			req.data = d;
 			req.method = "post";

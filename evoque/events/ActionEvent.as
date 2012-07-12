@@ -10,6 +10,7 @@
 		public static const SHOW_GALLERY:String = "showGallery";
 		public static const UPLOAD_MORE:String = "uploadMore";
 		public static const ITEM_SELECTED:String = "itemSelected";
+		public static const HIDE_CHILDREN:String = "hideChildren";
 		
 		private var _text:String;
 		

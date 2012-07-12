@@ -15,6 +15,7 @@
 		private var _forntside:DisplayObject;
 		private var _backside:DisplayObject;
 		private var _initobj:DisplayObject;
+		private var _empty:Shape;
 		private var _itemwidth:Number;
 
 		public function FlipItem(front:DisplayObject, back:DisplayObject=null, itemWidth:Number=100)
@@ -30,26 +31,19 @@
 			_forntside.x = _forntside.y = _itemwidth / 2;
 			addChild(_forntside);
 			
+			var q:Number = Math.PI / 4;
+			_empty = new Shape();
+			_empty.graphics.beginGradientFill(GradientType.LINEAR, [0x3e3e3e, 0x0c0c0c], [1, 1], [0, 255], new Matrix(Math.cos(q), Math.sin(q), Math.sin(q)*-1, Math.cos(q)));
+			_empty.graphics.drawRect(_itemwidth/2*-1,_itemwidth/2*-1,_itemwidth,_itemwidth);
+			_empty.graphics.endFill();
 			if (_backside == null)
 			{
-				var q:Number = Math.PI / 4;
-				var bg:Shape = new Shape();
-				bg.graphics.beginGradientFill(GradientType.LINEAR, [0x3e3e3e, 0x0c0c0c], [1, 1], [0, 255], new Matrix(Math.cos(q), Math.sin(q), Math.sin(q)*-1, Math.cos(q)));
-				bg.graphics.drawRect(_itemwidth/2*-1,_itemwidth/2*-1,_itemwidth,_itemwidth);
-				bg.graphics.endFill();
-				_backside = bg;
+				_backside = _empty;
 			}
 			_backside.x = _backside.y = _itemwidth / 2;
 			addChild(_backside);
 			_backside.scaleX = 0;
 			
-			//addEventListener(Event.ENTER_FRAME,ontemp);
-		}
-		
-		private function ontemp(e:Event):void
-		{
-			_forntside.rotationY += 2;
-			_backside.rotationX += 2;
 		}
 		
 		public function get frontobj():DisplayObject
@@ -71,7 +65,23 @@
 		{
 			var tl:TimelineLite = new TimelineLite({onComplete:endaction});
 			tl.append(new TweenLite(_forntside, duration/2, {scaleX:0}));
-			tl.append(new TweenLite(_backside, duration/2, {scaleX:1}));
+			if (_backside)
+			{
+				tl.append(new TweenLite(_backside, duration/2, {scaleX:1}));
+				swapside();
+			}
+			else
+			{
+				tl.append(new TweenLite(_forntside, duration/2, {scaleX:1}));
+			}
+		}
+		
+		public function swapside():void
+		{
+			var t:DisplayObject = _backside;
+			_backside = _forntside;
+			_forntside = t;
+			_backside.scaleX = 0;
 		}
 		
 		private function endaction():void
@@ -80,10 +90,6 @@
 			{
 				_initobj = _forntside;
 			}
-			var t:DisplayObject = _backside;
-			_backside = _forntside;
-			_forntside = t;
-			_backside.scaleX = 0;
 		}
 				
 	}
