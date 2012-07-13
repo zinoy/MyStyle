@@ -16,6 +16,7 @@
 	import evoque.common.*;
 	import evoque.controls.*;
 	import evoque.events.*;
+	import com.greensock.events.LoaderEvent;
 
 	[Event(name="hideChildren", type="evoque.events.ActionEvent")]
 	[Event(name="showFootbar", type="evoque.events.ActionEvent")]
@@ -62,17 +63,38 @@
 			var row:int = Math.floor(stage.stageHeight / _cellwidth) + 2;
 			_dimension = new SquareSize(col, row);
 			
+			//prepare blank grid
+			var blank:BitmapData = new BitmapData(_cellwidth,_cellwidth);
+			var q:Number = Math.PI / 4;
+			var empty:Shape = new Shape();
+			empty.graphics.beginGradientFill(GradientType.LINEAR, [0x3e3e3e, 0x0c0c0c], [1, 1], [0, 255], new Matrix(Math.cos(q), Math.sin(q), Math.sin(q)*-1, Math.cos(q)));
+			empty.graphics.drawRect(0,0,_cellwidth,_cellwidth);
+			empty.graphics.endFill();
+			blank.draw(empty);
+			Shared.blankGrid = blank;
+			
 			var ca:Object = SWFAddress.getParameter("ca");
 			var p:Object = SWFAddress.getParameter("p");
+			var uid:Object = SWFAddress.getParameter("self");
+			var query:Object = SWFAddress.getParameter("q");
 			if (p)
 				_pageindex = int(p);
 			var loader:URLLoader = new URLLoader();
 			var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
 			var d:URLVariables = new URLVariables();
-			d.ac = "getpics";
+			if (query)
+			{
+				d.ac = "search";
+				d.q = query;
+			}
+			else
+			{
+				d.ac = "getpics";
+				d.ca = ca;
+				d.uid = uid == 1 ? Shared.UID : "";
+			}
 			d.p = _pageindex;
-			d.s = 5;//_dimension.contentLength;
-			d.ca = ca;
+			d.s = _dimension.contentLength;
 			d.hash = Utility.hash(d);
 			req.data = d;
 			req.method = "post";
@@ -82,7 +104,6 @@
 				loader.addEventListener(Event.COMPLETE,loadpic);
 			loader.addEventListener(IOErrorEvent.IO_ERROR,error);
 			loader.load(req);
-			trace(d);
 		}
 		
 		private function loadpic(e:Event):void
@@ -90,7 +111,6 @@
 			var loader:URLLoader = URLLoader(e.target);
 			loader.removeEventListener(Event.COMPLETE,loadpic);
 			var xml:XML = XML(loader.data);
-			trace(xml);
 			if (xml.code == 0)
 			{
 				var sc:BitmapData = new BitmapData(stage.stageWidth,stage.stageHeight,true,0);
@@ -110,7 +130,6 @@
 					return;
 				}
 				var cpos:Rectangle = Utility.center(_dimension,imglist.length());
-				trace(cpos);
 				var count:int = 0;
 				
 				for (var i:int=0; i<_dimension.row; i++)
@@ -119,20 +138,19 @@
 					{
 						var s:ScreenBlock = new ScreenBlock(sc,_cellwidth,new Point(j,i),offset);
 						var f:FlipItem;
-						if (cpos.contains(j, i) && count < imglist.length())
+						if (i == _dimension.row-4 && j == _dimension.column-1)
 						{
-							var p:PhotoItem = new PhotoItem(imglist[count].type);//will add more properties
-							_picloader.append(new ImageLoader(Shared.URL_BASE + imglist[count].img + "_t_.jpg", {name:"obj"+_squares.length, width:_cellwidth, height:_cellwidth, scaleMode:ScaleMode.PROPORTIONAL_INSIDE, onComplete:p.complete}));
-							f = new FlipItem(s,p,_cellwidth);
-							count++;
+							var pr:PagerBlock = new PagerBlock(_cellwidth,_pageindex,xml.total);
+							f = new FlipItem(s,pr,_cellwidth);
 						}
 						else
 						{
-							if (i == _dimension.row-3 && j == _dimension.column-1)
+							if (cpos.contains(j, i) && count < imglist.length())
 							{
-								var pr:PagerBlock = new PagerBlock(_cellwidth,_pageindex,xml.total);
-								pr.addEventListener(PageEvent.PAGE_CHANGE,updatepage);
-								f = new FlipItem(s,pr,_cellwidth);
+								var p:PhotoItem = new PhotoItem(imglist[count].type);//will add more properties
+								_picloader.append(new ImageLoader(Shared.IMAGE_PATH + imglist[count].img + "_small.jpg", {name:"obj"+_squares.length, width:_cellwidth, height:_cellwidth, crop:true, scaleMode:ScaleMode.PROPORTIONAL_OUTSIDE, centerRegistration:true, onComplete:p.complete}));
+								f = new FlipItem(s,p,_cellwidth);
+								count++;
 							}
 							else
 							{
@@ -152,12 +170,13 @@
 				addChild(_picpanel);
 				adjustPos(null);
 				var idxlist:Array = Utility.shuffle(Utility.fill(_squares.length));
-				var interval:Number = 1 / _dimension.length;
+				var interval:Number = 1.2 / _dimension.length;
 				for (var x:int=0; x<idxlist.length; x++)
 				{
 					var obj:FlipItem = _squares[idxlist[x]];
-					TweenLite.delayedCall(x*interval+1, obj.turnover);
+					TweenLite.delayedCall(x*interval+.6, obj.turnover);
 				}
+				TweenLite.delayedCall(2,showfootbar);
 			}
 		}
 		
@@ -165,13 +184,6 @@
 		{
 			var evt:ActionEvent = new ActionEvent(ActionEvent.SHOW_FOOTBAR);
 			dispatchEvent(evt);
-		}
-		
-		private function updatepage(e:PageEvent):void
-		{
-			_pageindex = e.index;
-			trace("_pageindex",_pageindex);
-			show();
 		}
 		
 		private function refreshpic(e:Event):void
@@ -190,39 +202,30 @@
 				var cpos:Rectangle = Utility.center(_dimension,imglist.length());
 				var count:int = 0;
 				
-				for (var i:int=0; i<_dimension.row; i++)
+				for (var i:int=1; i<_dimension.row - 1; i++)
 				{
 					for (var j:int=0; j<_dimension.column; j++)
 					{
 						var f:FlipItem;
-						if (cpos.contains(j, i) && count < imglist.length())
+						if (i == _dimension.row-4 && j == _dimension.column-1)
 						{
-							var p:PhotoItem = new PhotoItem(imglist[count].type);//will add more properties
-							var loadobj = _picloader.getContent(Shared.URL_BASE + imglist[count].img + "_t_.jpg");
-							if (loadobj)
-							{
-								p.setpic(loadobj);
-							}
-							else
-							{
-								_picloader.append(new ImageLoader(Shared.URL_BASE + imglist[count].img + "_t_.jpg", {name:"obj"+_squares.length, width:_cellwidth, height:_cellwidth, scaleMode:ScaleMode.PROPORTIONAL_INSIDE, onComplete:p.complete}));
-							}
-							f = _squares[i * j];
-							f.backobj = p;
-							count++;
+							var pr:PagerBlock = new PagerBlock(_cellwidth,_pageindex,xml.total);
+							f = _squares[(i * _dimension.column) + j];
+							f.backobj = pr;
 						}
 						else
 						{
-							if (i == _dimension.row-3 && j == _dimension.column-1)
+							if (cpos.contains(j, i) && count < imglist.length())
 							{
-								var pr:PagerBlock = new PagerBlock(_cellwidth,_pageindex,xml.total);
-								pr.addEventListener(PageEvent.PAGE_CHANGE,updatepage);
-								f = _squares[i * j];
-								f.backobj = pr;
+								var p:PhotoItem = new PhotoItem(imglist[count].type);//will add more properties
+								_picloader.append(new ImageLoader(Shared.IMAGE_PATH + imglist[count].img + "_small.jpg", {name:"obj"+_squares.length, width:_cellwidth, height:_cellwidth, crop:true, scaleMode:ScaleMode.PROPORTIONAL_OUTSIDE, centerRegistration:true, onComplete:p.complete}));
+								f = _squares[(i * _dimension.column) + j];
+								f.backobj = p;
+								count++;
 							}
 							else
 							{
-								f = _squares[i * j];
+								f = _squares[(i * _dimension.column) + j];
 								f.backobj = null;
 							}
 						}
@@ -235,7 +238,7 @@
 				for (var x:int=0; x<idxlist.length; x++)
 				{
 					var obj:FlipItem = _squares[idxlist[x]];
-					TweenLite.delayedCall(x*interval+1, obj.turnover);
+					TweenLite.delayedCall(x*interval, obj.turnover);
 				}
 			}
 		}

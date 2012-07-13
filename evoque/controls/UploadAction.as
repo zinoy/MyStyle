@@ -37,7 +37,7 @@
 			weibo.alpha = .5;
 			weibo.btnupload.enabled = false;
 			weibo.btnat.enabled = false;
-			weibo.tbweibo.text = "#不趋同 自趋势# 输入宣言";
+			weibo.tbweibo.text = "#不趋同 自趋势# 输入宣言";//select:10-14
 			weibo.tbweibo.type = TextFieldType.DYNAMIC;
 			weibo.tbweibo.selectable = false;
 			btnClose.addEventListener(MouseEvent.CLICK,closepanel);

@@ -9,13 +9,15 @@
 	import com.greensock.easing.*;
 	
 	import evoque.display.PhotoItem;
+	import evoque.common.Shared;
 
 	public class FlipItem extends Sprite
 	{
 		private var _forntside:DisplayObject;
 		private var _backside:DisplayObject;
-		private var _initobj:DisplayObject;
-		private var _empty:Shape;
+		//private var _initobj:DisplayObject;
+		private var _empty:Bitmap;
+		private var _emptyback:Shape;
 		private var _itemwidth:Number;
 
 		public function FlipItem(front:DisplayObject, back:DisplayObject=null, itemWidth:Number=100)
@@ -31,19 +33,17 @@
 			_forntside.x = _forntside.y = _itemwidth / 2;
 			addChild(_forntside);
 			
-			var q:Number = Math.PI / 4;
-			_empty = new Shape();
-			_empty.graphics.beginGradientFill(GradientType.LINEAR, [0x3e3e3e, 0x0c0c0c], [1, 1], [0, 255], new Matrix(Math.cos(q), Math.sin(q), Math.sin(q)*-1, Math.cos(q)));
-			_empty.graphics.drawRect(_itemwidth/2*-1,_itemwidth/2*-1,_itemwidth,_itemwidth);
-			_empty.graphics.endFill();
 			if (_backside == null)
 			{
-				_backside = _empty;
+				var bmp:Bitmap = new Bitmap(Shared.blankGrid)
+				var ept:Sprite = new Sprite();
+				ept.addChild(bmp);
+				bmp.x = bmp.y = _itemwidth / 2 * -1;
+				_backside = ept;
 			}
 			_backside.x = _backside.y = _itemwidth / 2;
 			addChild(_backside);
 			_backside.scaleX = 0;
-			
 		}
 		
 		public function get frontobj():DisplayObject
@@ -58,22 +58,27 @@
 		
 		public function set backobj(val:DisplayObject):void
 		{
+			if (_backside && contains(_backside))
+				removeChild(_backside);
 			_backside = val;
+			if (!val)
+			{
+				var bmp:Bitmap = new Bitmap(Shared.blankGrid)
+				var ept:Sprite = new Sprite();
+				ept.addChild(bmp);
+				bmp.x = bmp.y = _itemwidth / 2 * -1;
+				_backside = ept;
+			}
+			addChild(_backside);
+			_backside.x = _backside.y = _itemwidth / 2;
+			_backside.scaleX = 0;
 		}
 		
 		public function turnover(duration:Number=.4):void
 		{
 			var tl:TimelineLite = new TimelineLite({onComplete:endaction});
 			tl.append(new TweenLite(_forntside, duration/2, {scaleX:0}));
-			if (_backside)
-			{
-				tl.append(new TweenLite(_backside, duration/2, {scaleX:1}));
-				swapside();
-			}
-			else
-			{
-				tl.append(new TweenLite(_forntside, duration/2, {scaleX:1}));
-			}
+			tl.append(new TweenLite(_backside, duration/2, {scaleX:1}));
 		}
 		
 		public function swapside():void
@@ -81,15 +86,15 @@
 			var t:DisplayObject = _backside;
 			_backside = _forntside;
 			_forntside = t;
-			_backside.scaleX = 0;
 		}
 		
 		private function endaction():void
 		{
-			if (_initobj == null)
+			/*if (_initobj == null)
 			{
 				_initobj = _forntside;
-			}
+			}*/
+			swapside();
 		}
 				
 	}

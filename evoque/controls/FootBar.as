@@ -18,6 +18,7 @@
 			_bg.graphics.drawRect(0,0,1000,35);
 			_bg.graphics.endFill();
 			addChildAt(_bg,0);
+			_bg.y = -35;
 		}
 		
 		public function wide():void

@@ -54,10 +54,11 @@
 		
 		private function swfchange():void
 		{
+			trace("URL:",SWFAddress.getValue());
 			var val:Array = SWFAddress.getPathNames();
 			if (val.length == 0)
 			{
-				loadChild(_path[0]);
+				SWFAddress.setValue(_path[0]);
 				return;
 			}
 			if (val[0] == "showroom")
@@ -66,13 +67,16 @@
 			}
 			else
 			{
+				if (contains(_gallery))
+				{
+					removeChild(_gallery);//will use animate instead
+				}
 				loadChild(val[0]);
 			}
 		}
 		
 		private function loadChild(path:String):void
 		{
-			trace(path);
 			_current = _path.indexOf(path);
 			if (_current < 0)
 				return;
@@ -87,7 +91,6 @@
 			var loader:LoaderInfo = LoaderInfo(e.target);
 			_dislpay = loader.content;
 			addChildAt(_dislpay,0);
-			trace(_current);
 			if (_current == 0)
 			{
 				_dislpay.addEventListener(ActionEvent.UPLOAD_MORE,goupload);
@@ -153,24 +156,25 @@
 		
 		private function showgallery(e:ActionEvent):void
 		{
-			addChild(_gallery);
+			addChildAt(_gallery,0);
 			_gallery.show();
 		}
 		
 		private function hideall(e:ActionEvent):void
 		{
-			trace("foot.x",foot.x);
 			removeChild(border);
 			removeChild(foot);
+			removeChild(_dislpay);
 		}
 		
 		private function showfoot(e:ActionEvent):void
 		{
-			foot.wide();
+			trace("show foot:",stage.stageHeight);
+			foot.x = (stage.stageWidth - 1000) / 2 * -1;
+			foot.y = (stage.stageHeight - 600) / 2 + 600 + 35;
 			addChild(foot);
-			foot.x = 0;
-			foot.y = stage.stageHeight + 35;
-			TweenLite.to(foot, .4, {y:stage.stageHeight,ease:Quad.easeOut});
+			foot.wide();
+			TweenLite.to(foot, .4, {y:foot.y - 35,ease:Quad.easeOut});
 		}
 		
 		private function hidefoot():void

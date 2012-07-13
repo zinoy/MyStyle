@@ -9,7 +9,6 @@
 
 	public class PhotoItem extends Sprite
 	{
-		private var _bitmap:Bitmap;
 		private var _category:Shape;
 		
 		public function PhotoItem(category:int=0)
@@ -48,37 +47,17 @@
 			}
 		}
 		
-		public function get content():Bitmap
-		{
-			return _bitmap;
-		}
-		
 		public function complete(e:LoaderEvent):void
 		{
 			var loader:ImageLoader = e.target as ImageLoader;
 			var obj:ContentDisplay = loader.content;
-			_bitmap = obj.rawContent as Bitmap;
-			//_bitmap.smoothing = true;
-			_bitmap.x = _bitmap.width / 2 * -1
-			_bitmap.y = _bitmap.x;
-			addChild(_bitmap);
+			addChild(obj);
+			_category.x = _category.y = obj.fitWidth / 2 * -1
+			addChild(obj);
 			addChild(_category);
-			_category.x = _category.y = _bitmap.x;
 			//remove preloader mark
 		}
 		
-		public function setpic(obj:ContentDisplay):void
-		{
-			_bitmap = obj.rawContent as Bitmap;
-			//_bitmap.smoothing = true;
-			_bitmap.x = _bitmap.width / 2 * -1
-			_bitmap.y = _bitmap.x;
-			addChild(_bitmap);
-			addChild(_category);
-			_category.x = _category.y = _bitmap.x;
-			//remove preloader mark
-		}
-				
 	}
 
 }

@@ -6,7 +6,7 @@
   <classTemplate>file:///C|/Documents and Settings/yuez/Local Settings/Application Data/Adobe/Flash CS5/zh_CN/Configuration/ActionScript 3.0/Templates/standardClass_as3.as</classTemplate>
   <classPath>.</classPath>
   <defaultApp>file:///D|/Works/Projects/flash/MyStyle/launcher.fla</defaultApp>
-  <rootURI>file:///C|/GitHub/MyStyle/</rootURI>
+  <rootURI>file:///D|/Works/Projects/flash/MyStyle/</rootURI>
   <flexSDK/>
   <sources editable="false"/>
   <libraries editable="false"/>
@@ -15,13 +15,19 @@
     <uri label="main.fla">file:///D|/Works/Projects/flash/MyStyle/main.fla</uri>
   </compileList>
   <recentFiles editable="false">
-    <uri label="UploadAction.as">file:///C|/GitHub/MyStyle/evoque/controls/UploadAction.as</uri>
-    <uri label="UserAction.as">file:///C|/GitHub/MyStyle/evoque/controls/UserAction.as</uri>
-    <uri label="ActionEvent.as">file:///C|/GitHub/MyStyle/evoque/events/ActionEvent.as</uri>
-    <uri label="home.fla">file:///C|/GitHub/MyStyle/home.fla</uri>
-    <uri label="PagerCell.as">file:///C|/GitHub/MyStyle/evoque/display/PagerCell.as</uri>
-    <uri label="PagerBlock.as">file:///C|/GitHub/MyStyle/evoque/display/PagerBlock.as</uri>
-    <uri label="PictureGrid.as">file:///C|/GitHub/MyStyle/evoque/display/PictureGrid.as</uri>
+    <uri label="Shared.as">file:///D|/Works/Projects/flash/MyStyle/evoque/common/Shared.as</uri>
+    <uri label="PagerBlock.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/PagerBlock.as</uri>
+    <uri label="PagerCell.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/PagerCell.as</uri>
+    <uri label="HomePage.as">file:///D|/Works/Projects/flash/MyStyle/evoque/HomePage.as</uri>
+    <uri label="FlipItem.as">file:///D|/Works/Projects/flash/MyStyle/evoque/animate/FlipItem.as</uri>
+    <uri label="PhotoItem.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/PhotoItem.as</uri>
+    <uri label="CagegoryTab.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/CagegoryTab.as</uri>
+    <uri label="UploadAction.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/UploadAction.as</uri>
+    <uri label="FootBar.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/FootBar.as</uri>
+    <uri label="launcher.fla">file:///D|/Works/Projects/flash/MyStyle/launcher.fla</uri>
+    <uri label="Utility.as">file:///D|/Works/Projects/flash/MyStyle/evoque/common/Utility.as</uri>
+    <uri label="PictureGrid.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/PictureGrid.as</uri>
+    <uri label="main5.fla">file:///D|/Works/Projects/flash/MyStyle/main5.fla</uri>
   </recentFiles>
   <locations editable="false"/>
 </projectDescription>

@@ -2,9 +2,10 @@
 {
 	import flash.display.*;
 	import flash.events.MouseEvent;
-	import evoque.events.PageEvent;
+	import flash.net.URLVariables;
 	
-	[Event(name="pageChange", type="evoque.events.PageEvent")]
+	import com.asual.swfaddress.SWFAddress;
+	
 	public class PagerBlock extends Sprite
 	{
 		private var _items:Vector.<PagerCell>;
@@ -18,9 +19,9 @@
 		private function init(w:Number,cur:int,total:int):void
 		{
 			_total = total;
+			var list:Array = getlist(cur);
 			_items = new Vector.<PagerCell>();
-			var count:int = total > 9 ? 9 : total;
-			for (var i:int=0; i<count; i++)
+			for (var i:int=0; i<list.length; i++)
 			{
 				var cw:Number = w / 3;
 				var cell:PagerCell = new PagerCell(cw);
@@ -28,67 +29,69 @@
 				addChild(cell);
 				cell.x = i % 3 * cw - w / 2;
 				cell.y = Math.floor(i / 3) * cw - w / 2;
-				if (i + 1 == cur)
+				cell.text = list[i];
+				if (int(list[i]) == cur)
 					cell.active();
 				_items.push(cell);
 			}
+		}
+		
+		private function getlist(cur:int):Array
+		{
 			var list:Array = [];
-			var p:int, end:int, n:int;
-			if (total <= 9)
+			if (_total <= 9)
 			{
-				for (n=0; n<total; n++)
+				for (var i:int=0; i<_total; i++)
 				{
-					list.push(String(n + 1));
+					list.push(String(i+1));
 				}
+				return list;
 			}
-			else if (total <= 16)
+			var st:int;
+			var tp:Number = 1;
+			tp += Math.ceil((_total - 8) / 7);
+			if (_total - (tp-1)*7+8 == 1)
 			{
-				p = Math.ceil(cur / 8);
-				end = 8;
-				if (p > 1)
+				tp--;
+			}
+			var p:Number
+			if (cur > 8)
+			{
+				p = Math.ceil((cur - 8) / 7) + 1;
+				if (p > tp)
 				{
-					end = total - 8;
-					list.push("prev");
+					p = tp;
 				}
-				for (n=(p - 1) * 8; n<end; n++)
-				{
-					list.push(String(n + 1));
-				}
-				if (p == 1)
-				{
-					list.push("next");
-				}
+				st = (p - 1) * 7 + 1;
 			}
 			else
 			{
-				p = Math.ceil(cur / 7);
-				end = 7;
-				if (p == Math.ceil(total % 7))
-				{
-					end = total - 7;
-				}
-				if (p > 1)
-				{
-					list.push("prev");
-				}
-				for (n=(p - 1) * 7; n<end; n++)
-				{
-					list.push(String(n + 1));
-				}
-				if (p == 1)
-				{
-					list.push("next");
-				}
+				p = 1;
+				st = 0;
 			}
-			setlabel(list);
-		}
-		
-		private function setlabel(list:Array):void
-		{
-			for (var i:int=0; i<_items.length; i++)
+			var end:int = st + 7;
+			if (p == tp)
 			{
-				_items[i].text = list[i];
+				end = st + (_total - ((p - 2) * 7 + 8));
 			}
+			if (p > 1)
+			{
+				list.push("prev");
+			}
+			trace(st,end);
+			for (var n:int=st; n<end; n++)
+			{
+				list.push(String(n + 1));
+			}
+			if (p == 1)
+			{
+				list.push(String(st + 8));
+			}
+			if (p < tp)
+			{
+				list.push("next");
+			}
+			return list;
 		}
 		
 		private function onChange(e:MouseEvent):void
@@ -98,31 +101,41 @@
 			if (obj.isActive)
 				return;
 			reset();
-			obj.active();
-			var evt:PageEvent = new PageEvent(PageEvent.PAGE_CHANGE);
+			var pidx:int;
 			if (obj.index == 0)
 			{
 				if (_items.indexOf(obj) == 0)
 				{
-					evt.index = _items[1].index - 1;
+					pidx = _items[1].index - 1;
 				}
 				else
 				{
-					evt.index = _items[_items.length - 2].index + 1;
+					pidx = _items[_items.length - 2].index + 1;
 				}
 			}
 			else
 			{
-				evt.index = obj.index;
+				pidx = obj.index;
 			}
-			dispatchEvent(evt);
+			var qs:String = SWFAddress.getQueryString();
+			var d:URLVariables = new URLVariables(qs);
+			d.p = pidx;
+			var ca:Object = SWFAddress.getParameter("ca");
+			var self:Object = SWFAddress.getParameter("self");
+			if (ca)
+				d.ca = ca;
+			if (self)
+				d.self = 1;
+			var path:String = "showroom?";
+			SWFAddress.setValue(path+d);
 		}
 		
 		private function reset():void
 		{
 			for each (var cell:PagerCell in _items)
 			{
-				cell.reset();
+				cell.removeEventListener(MouseEvent.CLICK,onChange);
+				//cell.reset();
 			}
 		}
 

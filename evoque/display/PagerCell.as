@@ -52,7 +52,7 @@
 		public function set text(val:String):void
 		{
 			var idx:int = int(val);
-			if (isNaN(idx))
+			if (idx == 0)
 			{
 				_tf.text = "...";
 				switch(val)
@@ -100,14 +100,17 @@
 		
 		public function active():void
 		{
+			buttonMode = false;
 			_active = true;
 			_hover.alpha = 1;
+			_tf.textColor = 0;
 		}
 		
 		public function reset():void
 		{
 			_active = false;
 			_hover.alpha = 0;
+			_tf.textColor = 0xb7d037;
 		}
 		
 		public function get isActive():Boolean

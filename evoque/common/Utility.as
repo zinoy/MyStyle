@@ -83,9 +83,7 @@
 				min = new SquareSize(d.column - ws * 2, row - ws * 2);
 				level = ws;
 			}
-			//var dl:Vector.<SquareSize> = new <SquareSize>[min];
-			trace("d:",d.column,d.row,count);
-			trace(min.column,min.row);
+
 			for (var i:int=0; i<=level; i++)
 			{
 				var c:int = min.column + i * 2;
