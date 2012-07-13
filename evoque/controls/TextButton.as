@@ -2,6 +2,8 @@
 {
 	import flash.display.*;
 	import flash.events.*;
+	import flash.text.TextField;
+	import flash.text.StaticText;
 	
 	public class TextButton extends ButtonBase
 	{
@@ -16,10 +18,13 @@
 		
 		private function init():void
 		{
+			var txt:StaticText = getChildAt(0) as StaticText;
+			var to:Number = txt.text.length * 9.6;
+			
 			line = new Shape();
 			line.graphics.lineStyle(1,_color);
 			line.graphics.moveTo(0,0);
-			line.graphics.lineTo(38,0);
+			line.graphics.lineTo(to,0);
 			addChild(line);
 			line.x = 3;
 			line.y = 15;

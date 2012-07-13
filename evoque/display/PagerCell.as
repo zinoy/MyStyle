@@ -32,7 +32,7 @@
 			_tf.embedFonts = true;
 			_tf.selectable = false;
 			var num:Font = new numfont();
-			var fm:TextFormat = new TextFormat(num.fontName, 18, 0xffffff);
+			var fm:TextFormat = new TextFormat(num.fontName, 18, 0xb7d037);
 			fm.align = TextFormatAlign.CENTER;
 			_tf.defaultTextFormat = fm;
 			if (txt)
@@ -86,12 +86,16 @@
 		private function over(e:MouseEvent):void
 		{
 			_hover.alpha = 1;
+			_tf.textColor = 0;
 		}
 		
 		private function out(e:MouseEvent):void
 		{
 			if (!_active)
+			{
 				_hover.alpha = 0;
+				_tf.textColor = 0xb7d037;
+			}
 		}
 		
 		public function active():void

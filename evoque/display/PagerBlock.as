@@ -93,33 +93,37 @@
 		
 		private function onChange(e:MouseEvent):void
 		{
-			var idx:int = reset();
+			
 			var obj:PagerCell = e.currentTarget as PagerCell;
+			if (obj.isActive)
+				return;
+			reset();
 			obj.active();
 			var evt:PageEvent = new PageEvent(PageEvent.PAGE_CHANGE);
-			evt.index = idx;
+			if (obj.index == 0)
+			{
+				if (_items.indexOf(obj) == 0)
+				{
+					evt.index = _items[1].index - 1;
+				}
+				else
+				{
+					evt.index = _items[_items.length - 2].index + 1;
+				}
+			}
+			else
+			{
+				evt.index = obj.index;
+			}
 			dispatchEvent(evt);
 		}
 		
-		private function reset():int
+		private function reset():void
 		{
-			var idx;
 			for each (var cell:PagerCell in _items)
 			{
-				if (cell.isActive)
-				{
-					idx = cell.index;
-					if (idx == 0)
-					{
-						if (_items.indexOf(cell) == 0)
-							idx = _items[1].index - 1;
-						else
-							idx = _items[_items.length - 2].index + 1;
-					}
-				}
 				cell.reset();
 			}
-			return idx;
 		}
 
 	}

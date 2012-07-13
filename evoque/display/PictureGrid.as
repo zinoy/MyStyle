@@ -18,6 +18,7 @@
 	import evoque.events.*;
 
 	[Event(name="hideChildren", type="evoque.events.ActionEvent")]
+	[Event(name="showFootbar", type="evoque.events.ActionEvent")]
 	public class PictureGrid extends Sprite
 	{
 		private var _picpanel:Sprite;
@@ -158,6 +159,12 @@
 					TweenLite.delayedCall(x*interval+1, obj.turnover);
 				}
 			}
+		}
+		
+		private function showfootbar():void
+		{
+			var evt:ActionEvent = new ActionEvent(ActionEvent.SHOW_FOOTBAR);
+			dispatchEvent(evt);
 		}
 		
 		private function updatepage(e:PageEvent):void

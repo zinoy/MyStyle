@@ -22,12 +22,12 @@
 		private function init():void
 		{
 			_weibo = new WeiboPanel();
-			_weibo.x = 193.5;
-			_weibo.y = 189.25;
+			_weibo.x = 114.7;
+			_weibo.y = 242.85;
 			
 			_login = new LoginPanel();
-			_login.x = _weibo.x;
-			_login.y = _weibo.y;
+			_login.x = 193.5;
+			_login.y = 189.25;
 			_login.addEventListener(UserEvent.LOGIN_COMPLETE,logined);
 			
 			_reg = new RegisterPanel();
