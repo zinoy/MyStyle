@@ -78,7 +78,6 @@
 			{
 				list.push("prev");
 			}
-			trace(st,end);
 			for (var n:int=st; n<end; n++)
 			{
 				list.push(String(n + 1));

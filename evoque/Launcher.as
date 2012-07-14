@@ -21,7 +21,7 @@
 			stage.addEventListener(Event.RESIZE,centerpos);
 			
 			var loader:Loader = new Loader();
-			var req:URLRequest = new URLRequest("main5.swf");
+			var req:URLRequest = new URLRequest("main.swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,addmain);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS,showprogress);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,error);
@@ -33,6 +33,7 @@
 			var loader:LoaderInfo = LoaderInfo(e.target);
 			_main = loader.content;
 			addChild(_main);
+			centerpos(null);
 		}
 		
 		private function centerpos(e:Event):void

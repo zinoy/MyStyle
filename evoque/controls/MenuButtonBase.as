@@ -41,6 +41,7 @@
 		
 		private function init():void
 		{
+			stop();
 			hover.alpha = 0;
 			buttonMode = true;
 			mouseChildren = false;
@@ -52,11 +53,19 @@
 		
 		private function over(e:MouseEvent):void
 		{
+			if (totalFrames > 1)
+			{
+				gotoAndStop(2);
+			}
 			TweenLite.to(hover, .3, {alpha:1, ease:Quad.easeOut});
 		}
 		
 		private function out(e:MouseEvent):void
 		{
+			if (totalFrames > 1)
+			{
+				gotoAndStop(1);
+			}
 			if (!_active)
 			{
 				TweenLite.to(hover, .2, {alpha:0, ease:Quad.easeOut});

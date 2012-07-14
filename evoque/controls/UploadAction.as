@@ -2,6 +2,7 @@
 {
 	import flash.display.*;
 	import flash.events.*;
+	import flash.external.ExternalInterface;
 	import flash.geom.Rectangle;
 	import flash.net.*;
 	import flash.text.*;
@@ -176,7 +177,7 @@
 			loader.addEventListener(Event.COMPLETE,end);
 			loader.addEventListener(IOErrorEvent.IO_ERROR,error);
 			trace(d);
-			loader.load(req);			
+			loader.load(req);
 		}
 		
 		private function addfriend(e:ActionEvent):void
@@ -199,6 +200,7 @@
 			trace(xml);
 			if (xml.code == 0)
 			{
+				ExternalInterface.call("shareToWeibo",Utility.trim(weibo.tbweibo.text),Shared.IMAGE_PATH + xml.img + "_o_.jpg");
 				TweenLite.to(this, .4, {alpha:0,ease:Quad.easeOut,onComplete:success});
 			}
 		}

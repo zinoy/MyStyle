@@ -27,7 +27,7 @@
 			var d:URLVariables = new URLVariables();
 			d.client_id = Shared.APP_KEY;
 			d.response_type = "code";
-			d.redirect_uri = "http://localhost:2103/OAuth.aspx";
+			d.redirect_uri = Shared.REDIRECT_URL;
 			d.state = Math.random();
 			req.data = d;
 			navigateToURL(req);

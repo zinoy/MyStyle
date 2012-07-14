@@ -1,13 +1,15 @@
 ﻿package evoque.controls
 {
 	import flash.display.*;
+	import flash.events.MouseEvent;
 	
 	import com.asual.swfaddress.SWFAddress;
-	import flash.events.MouseEvent;
 
 	public class NavigateMenu extends Sprite
 	{
 		private var _list:Vector.<MenuButtonBase>;
+		private var _bg:Shape;
+		private var _blackBg:Shape;
 
 		public function NavigateMenu()
 		{
@@ -16,12 +18,28 @@
 		
 		private function init():void
 		{
-			_list = new <MenuButtonBase>[navHome,navPrize,navShowroom,navEvoque,navDealers];
+			_bg = getChildAt(0) as Shape;
+			_blackBg = new Shape();
+			_blackBg.graphics.beginFill(0);
+			_blackBg.graphics.moveTo(0, 0);
+			_blackBg.graphics.lineTo(551, 0);
+			_blackBg.graphics.lineTo(603, 52);
+			_blackBg.graphics.lineTo(52, 52);
+			_blackBg.graphics.lineTo(0, 0);
+			_blackBg.graphics.endFill();
+			addChildAt(_blackBg, 1);
+
+			_list = new <MenuButtonBase>[navHome,navRules,navPrize,navShowroom,navEvoque,navEvents];
 			for each (var it:MenuButtonBase in _list)
 			{
 				it.addEventListener(MouseEvent.CLICK,gonav);
 			}
 			_list[0].active = true;
+		}
+		
+		public function get black():Shape
+		{
+			return _blackBg;
 		}
 		
 		private function gonav(e:MouseEvent):void
@@ -40,16 +58,19 @@
 					nav = "home";
 					break;
 				case 1:
-					nav = "prize";
+					nav = "#rules";
 					break;
 				case 2:
-					nav = "showroom";
+					nav = "prize";
 					break;
 				case 3:
-					nav = "evoque";
+					nav = "showroom";
 					break;
 				case 4:
-					nav = "dealers";
+					nav = "evoque";
+					break;
+				case 5:
+					nav = "events";
 					break;
 				default:
 					return;
