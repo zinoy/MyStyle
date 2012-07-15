@@ -298,8 +298,8 @@
 				}
 				_picloader.load();
 				
-				var idxlist:Array = Utility.shuffle(Utility.fill(_squares.length));
-				var interval:Number = 1 / _dimension.length;
+				var idxlist:Array = Utility.shuffle(Utility.fill(_dimension.column, _dimension.column + _dimension.contentLength));
+				var interval:Number = 1 / _dimension.contentLength;
 				for (var x:int=0; x<idxlist.length; x++)
 				{
 					var obj:FlipItem = _squares[idxlist[x]];

@@ -98,6 +98,7 @@
 		{
 			_input.border = true;
 			_input.textColor = 0xf84c00;
+			setFocus();
 			return val;
 		}
 		

@@ -25,12 +25,28 @@
 			return arr2;
 		}
 		
-		public static function fill(len:int):Array
+		public static function fill(min:int,max:int=0):Array
 		{
+			if (max > 0 && max <= min)
+			{
+				throw new ArgumentError("Param max must bigger than min.");
+			}
 			var arr:Array = [];
+			var len:int;
+			var offset:int;
+			if (max == 0)
+			{
+				len = min;
+				offset = 0;
+			}
+			else
+			{
+				len = max - min;
+				offset = min;
+			}
 			while (arr.length < len)
 			{
-				arr.push(arr.length);
+				arr.push(arr.length + offset);
 			}
 			return arr;
 		}

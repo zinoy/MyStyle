@@ -48,7 +48,6 @@
 			
 			addEventListener(MouseEvent.ROLL_OVER,over);
 			addEventListener(MouseEvent.ROLL_OUT,out);
-			addEventListener(MouseEvent.CLICK,onClick);
 		}
 		
 		private function over(e:MouseEvent):void
@@ -70,12 +69,6 @@
 			{
 				TweenLite.to(hover, .2, {alpha:0, ease:Quad.easeOut});
 			}
-		}
-		
-		private function onClick(e:MouseEvent):void
-		{
-			_active = true;
-			TweenLite.to(hover, .1, {alpha:1, ease:Quad.easeOut});
 		}
 		
 	}

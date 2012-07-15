@@ -19,6 +19,7 @@
 		{
 			btnGo.addEventListener(MouseEvent.CLICK,go);
 			btnlogin.addEventListener(MouseEvent.CLICK,login);
+			btnreg.addEventListener(MouseEvent.CLICK,reg);
 		}
 		
 		private function go(e:MouseEvent):void
@@ -36,6 +37,12 @@
 		private function login(e:MouseEvent):void
 		{
 			var evt:UserEvent = new UserEvent(UserEvent.LOCAL_LOGIN);
+			dispatchEvent(evt);
+		}
+		
+		private function reg(e:MouseEvent):void
+		{
+			var evt:UserEvent = new UserEvent(UserEvent.LOCAL_REGISTER);
 			dispatchEvent(evt);
 		}
 

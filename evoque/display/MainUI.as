@@ -26,6 +26,7 @@
 			btnopen.addEventListener(MouseEvent.CLICK, togglemini);
 			btnupload.addEventListener(MouseEvent.CLICK, goupload);
 			btnmini.addEventListener(MouseEvent.CLICK, goupload);
+			nav.addEventListener(ActionEvent.SHOW_RULES,showrules);
 		}
 		
 		public function homeview():void
@@ -70,7 +71,13 @@
 			removeChild(nav);
 			removeChild(btnmini);
 			addChild(btnopen);
+			btnopen.alpha = 1;
 			this.y = y;
+		}
+		
+		public function setnav(index:int):void
+		{
+			nav.setCurrent(index);
 		}
 		
 		private function togglemini(e:MouseEvent):void
@@ -134,6 +141,12 @@
 		private function goupload(e:MouseEvent):void
 		{
 			var evt:ActionEvent =  new ActionEvent(ActionEvent.UPLOAD_MORE);
+			dispatchEvent(evt);
+		}
+		
+		private function showrules(e:ActionEvent):void
+		{
+			var evt:ActionEvent = new ActionEvent(ActionEvent.SHOW_RULES);
 			dispatchEvent(evt);
 		}
 		

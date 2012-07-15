@@ -1,0 +1,45 @@
+﻿launcher.swf Movie Report
+
+
+
+Metadata
+
+
+Bytes         Value
+
+    
+
+       666    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"> <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"> <dc:format>application/x-shockwave-flash</dc:format> </rdf:Description> <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/"> <xmp:MetadataDate>2012-07-15T14:23:13+08:00</xmp:MetadataDate> <xmp:ModifyDate>2012-07-15T14:23:13+08:00</xmp:ModifyDate> </rdf:Description> <rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"> <xmpMM:InstanceID>xmp.iid:C819FDC144CEE11184EABCC25C982162</xmpMM:InstanceID> <xmpMM:DocumentID>xmp.did:C819FDC144CEE11184EABCC25C982162</xmpMM:DocumentID> <xmpMM:OriginalDocumentID>xmp.did:6674FAA759CAE11183FBB3D06D6740E5</xmpMM:OriginalDocumentID> <xmpMM:DerivedFrom rdf:parseType="Resource"> <stRef:instanceID>xmp.iid:284EF7DC26CEE11184EABCC25C982162</stRef:instanceID> <stRef:documentID>xmp.did:6674FAA759CAE11183FBB3D06D6740E5</stRef:documentID> <stRef:originalDocumentID>xmp.did:6674FAA759CAE11183FBB3D06D6740E5</stRef:originalDocumentID> </xmpMM:DerivedFrom> </rdf:Description> </rdf:RDF> 
+
+Frame #    Frame Bytes    Total Bytes    Scene
+
+    
+    
+    
+
+      1           8858           8858    场景 1 (AS 3.0 Classes Export Frame)
+
+Scene     Shape Bytes    Text Bytes    ActionScript Bytes
+
+    
+    
+    
+
+场景 1              0             0                  1488
+
+Font Name                    Bytes         Characters
+
+    
+    
+
+FoundryMonoline-Bold Bold          6652    .0123456789
+
+ActionScript Bytes    Location
+
+    
+
+              1488    场景 1:Frame 1
+
+
+
+

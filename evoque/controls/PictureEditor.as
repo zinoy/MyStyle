@@ -11,12 +11,14 @@
 	import com.greensock.loading.display.ContentDisplay;
 	
 	import evoque.common.Shared;
+	import evoque.display.Preloader;
 
 	public class PictureEditor extends Sprite
 	{
 		private const ZOOM_LEVEL:int = 6;
 		
 		private var _defimg:DisplayObject;
+		private var _loading:Preloader;
 		private var _img:ContentDisplay;
 		private var _dragstart:Point;
 		private var _dragrect:Rectangle;
@@ -32,6 +34,7 @@
 		
 		private function init():void
 		{
+			_loading = new Preloader(233);
 			_dragrect = new Rectangle();
 			_dragstart = new Point();
 			_offset = new Point();
@@ -52,6 +55,12 @@
 		{
 			Mouse.cursor = MouseCursor.AUTO;
 			//stopdrag(null);
+		}
+		
+		public function loading():void
+		{
+			addChild(_loading);
+			_loading.x = _loading.y = 233 / 2;
 		}
 		
 		private function startdrag(e:MouseEvent):void
@@ -112,7 +121,7 @@
 			{
 				_step.push((1 - Math.cos(Math.PI / 2 / (ZOOM_LEVEL - 1) * i)) / 1 * (1 - _img.scaleX) + _img.scaleX);
 			}
-trace(Math.sin(Math.PI));
+			
 			_dragobj = new Sprite();
 			_dragobj.graphics.beginFill(0x00ff00);
 			_dragobj.graphics.drawRect(0,0,_defimg.width,_defimg.height);
@@ -128,6 +137,7 @@ trace(Math.sin(Math.PI));
 			}
 			var evt:Event = new Event(Event.COMPLETE);
 			dispatchEvent(evt);
+			removeChild(_loading);
 		}
 		
 		private function fitscreen(obj:DisplayObject,width:Number):void

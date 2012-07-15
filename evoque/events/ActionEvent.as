@@ -12,6 +12,7 @@
 		public static const ITEM_SELECTED:String = "itemSelected";
 		public static const HIDE_CHILDREN:String = "hideChildren";
 		public static const SHOW_FOOTBAR:String = "showFootbar";
+		public static const SHOW_RULES:String = "showRules";
 		
 		private var _text:String;
 		

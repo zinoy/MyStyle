@@ -26,10 +26,12 @@
 		private var _uploadPicAfterLogin:Boolean = false;
 		private var _gallery:PictureGrid;
 		private var _detail:PhotoInfo;
+		private var _rules:RulePanel;
 		
 		private var _path:Array = ["home", "prize", "showroom", "evoque", "events"];
-		private var _current:int;
-		private var _dislpay:DisplayObject;
+		private var _current:int = -1;
+		private var _home:DisplayObject;
+		private var _child:DisplayObject;
 
 		public function MainPage()
 		{
@@ -39,6 +41,7 @@
 		private function init():void
 		{
 			ExternalInterface.addCallback("set",setuid);
+			ExternalInterface.call("pv");
 			_user = new UserAction();
 			_success = new SuccessPanel();
 			
@@ -54,6 +57,17 @@
 			ubtns.mainLogin.addEventListener(MouseEvent.CLICK,gologin);
 			ubtns.mainReg.addEventListener(MouseEvent.CLICK,goreg);
 			ui.addEventListener(ActionEvent.UPLOAD_MORE,goupload);
+			ui.addEventListener(ActionEvent.SHOW_RULES,showrules);
+			
+			_rules = new RulePanel();
+			_rules.x = (1000 - _rules.width) / 2;
+			_rules.y = (600 - _rules.height) / 2;
+			_rules.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
+			
+			removeChild(ui);
+			ubtns.hide();
+			removeChild(foot);
+			
 			SWFAddress.onChange = swfchange;
 		}
 		
@@ -70,6 +84,18 @@
 					goupload(null);
 				}
 			}
+		}
+		
+		public function showContent():void
+		{
+			addChild(ui);
+			ui.alpha = 0;
+			addChild(foot);
+			swapChildren(foot, border);
+			foot.alpha = 0;
+			TweenLite.to(ui, .4, {alpha:1,ease:Quad.easeOut});
+			TweenLite.to(foot, .4, {alpha:1,ease:Quad.easeOut});
+			TweenLite.delayedCall(.8, ubtns.show);
 		}
 		
 		private function swfchange():void
@@ -98,7 +124,7 @@
 			{
 				if (_gallery != null && contains(_gallery))
 				{
-					removeChild(_gallery);//will use animate instead
+					removeChild(_gallery);//will use animation instead
 					addChild(border);
 					foot.thin();
 					foot.x = 0;
@@ -112,27 +138,62 @@
 		
 		private function loadChild(path:String):void
 		{
-			_current = _path.indexOf(path);
-			if (_current < 0)
+			var next:int = _path.indexOf(path);
+			if (next == _current)
+			{
 				return;
+			}
+			_current = next;
+			if (_current < 0)
+			{
+				return;
+			}
+			else if (_current == 0 && _home != null)
+			{
+				showChild(0)
+				return;
+			}
 			var loader:Loader = new Loader();
 			var req:URLRequest = new URLRequest(path + ".swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,showChild);
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS,childProgress);
 			loader.load(req);
 		}
 		
-		private function showChild(e:Event):void
+		private function childProgress(e:ProgressEvent):void
 		{
-			var loader:LoaderInfo = LoaderInfo(e.target);
-			_dislpay = loader.content;
-			addChildAt(_dislpay,0);
-			if (_current == 0)
+			dispatchEvent(e.clone());
+		}
+		
+		private function showChild(e:*):void
+		{
+			if (_child != null && contains(_child))
+				removeChild(_child);
+			
+			if (e is Event)
 			{
-				ui.homeview();
+				var loader:LoaderInfo = LoaderInfo(e.target);
+				_child = loader.content;
+				addChildAt(_child, 0);
+				if (_current == 0)
+				{
+					_home = _child;
+					_child = null;
+					_home.alpha = 0;
+					TweenLite.to(_home, .4, {alpha:1,ease:Quad.easeOut,onComplete:showContent});
+					ui.homeview();
+				}
+				else
+				{
+					ui.childview();
+				}
+				dispatchEvent(e.clone());
 			}
 			else
 			{
-				ui.childview();
+				_child = null;
+				addChildAt(_home, 0);
+				ui.homeview();
 			}
 		}
 		
@@ -152,6 +213,13 @@
 			TweenLite.to(_user, .4, {alpha:1,ease:Quad.easeOut});
 		}
 		
+		private function showrules(e:ActionEvent):void
+		{
+			addChild(_rules);
+			_rules.alpha = 0;
+			TweenLite.to(_rules, .4, {alpha:1,ease:Quad.easeOut});
+		}
+		
 		private function closepanel(e:ActionEvent):void
 		{
 			var obj:DisplayObject = e.currentTarget as DisplayObject;
@@ -169,6 +237,11 @@
 		
 		private function goupload(e:ActionEvent):void
 		{
+			if (_gallery != null && contains(_gallery))
+			{
+				SWFAddress.setValue(_path[0]);
+				ui.setnav(0);
+			}
 			_upload = new UploadAction();
 			_upload.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
 			_upload.addEventListener(ActionEvent.SHOW_SUCCESS,showsuccess);
@@ -246,7 +319,10 @@
 		{
 			removeChild(border);
 			removeChild(foot);
-			removeChild(_dislpay);
+			if (_home != null && contains(_home))
+				removeChild(_home);
+			if (_child != null && contains(_child))
+				removeChild(_child);
 			removeChild(ubtns);
 			removeChild(ui);
 			ubtns.hide();
@@ -267,6 +343,7 @@
 			swapChildren(ui,foot);
 			ui.alpha = 0;
 			ui.miniview((stage.stageHeight - 600) / 2 + 600 - 70);
+			trace(ui.x, ui.y);
 			TweenLite.to(ui, .4, {alpha:1,ease:Quad.easeOut});
 		}
 		

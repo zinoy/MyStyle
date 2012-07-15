@@ -4,12 +4,14 @@
 	import flash.events.MouseEvent;
 	
 	import com.asual.swfaddress.SWFAddress;
+	import evoque.events.ActionEvent;
 
 	public class NavigateMenu extends Sprite
 	{
 		private var _list:Vector.<MenuButtonBase>;
 		private var _bg:Shape;
 		private var _blackBg:Shape;
+		private var _lastActive:int;
 
 		public function NavigateMenu()
 		{
@@ -42,13 +44,15 @@
 			return _blackBg;
 		}
 		
+		public function setCurrent(index:int):void
+		{
+			hideActive();
+			_list[index].active = true;
+		}
+		
 		private function gonav(e:MouseEvent):void
 		{
-			for each (var it:MenuButtonBase in _list)
-			{
-				if (it != e.currentTarget)
-					it.active = false;
-			}
+			hideActive();
 
 			var idx:int = _list.indexOf(e.currentTarget as MenuButtonBase);
 			var nav:String;
@@ -58,8 +62,11 @@
 					nav = "home";
 					break;
 				case 1:
-					nav = "#rules";
-					break;
+					//_list[idx].active = false;
+					_list[_lastActive].active = true;
+					var evt:ActionEvent = new ActionEvent(ActionEvent.SHOW_RULES);
+					dispatchEvent(evt);
+					return;
 				case 2:
 					nav = "prize";
 					break;
@@ -75,7 +82,23 @@
 				default:
 					return;
 			}
+			_list[idx].active = true;
 			SWFAddress.setValue(nav);
+		}
+		
+		private function hideActive():void
+		{
+			trace("hide");
+			for each (var it:MenuButtonBase in _list)
+			{
+				if (it.active)
+				{
+					it.active = false;
+					_lastActive = _list.indexOf(it);
+					break;
+				}
+			}
+
 		}
 		
 	}

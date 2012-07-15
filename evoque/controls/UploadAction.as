@@ -38,7 +38,7 @@
 			weibo.alpha = .5;
 			weibo.btnupload.enabled = false;
 			weibo.btnat.enabled = false;
-			weibo.tbweibo.text = "#不趋同 自趋势# 输入宣言";//select:10-14
+			weibo.tbweibo.text = "#不趋同，自趋势# 输入宣言";//select:10-14
 			weibo.tbweibo.type = TextFieldType.DYNAMIC;
 			weibo.tbweibo.selectable = false;
 			btnClose.addEventListener(MouseEvent.CLICK,closepanel);
@@ -78,7 +78,7 @@
 			file.addEventListener(IOErrorEvent.IO_ERROR,error);
 			file.upload(req);
 			toggleButtonStatus(btnBrowse);
-			//add preloader
+			editor.loading();
 		}
 		
 		private function step2(e:DataEvent):void
@@ -119,6 +119,8 @@
 			weibo.btnupload.addEventListener(MouseEvent.CLICK,save);
 			weibo.tbweibo.type = TextFieldType.INPUT;
 			weibo.tbweibo.selectable = true;
+			weibo.tbweibo.setSelection(10, 14);
+			stage.focus = weibo.tbweibo;
 			_friends = new FriendsList();
 			_friends.addEventListener(ActionEvent.ITEM_SELECTED,addfriend);
 			_friends.x = 286.5;
@@ -157,6 +159,7 @@
 		
 		private function save(e:MouseEvent):void
 		{
+			weibo.btnupload.removeEventListener(MouseEvent.CLICK,save);
 			var loader:URLLoader = new URLLoader();
 			var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
 			var d:URLVariables = new URLVariables();

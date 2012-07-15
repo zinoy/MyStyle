@@ -37,6 +37,7 @@
 			
 			btnClose.addEventListener(MouseEvent.CLICK,closepanel);
 			_weibo.addEventListener(UserEvent.LOCAL_LOGIN,golocal);
+			_weibo.addEventListener(UserEvent.LOCAL_REGISTER,goreg);
 			_login.addEventListener(UserEvent.LOCAL_REGISTER,goreg);
 			_reg.addEventListener(UserEvent.WEIBO_LOGIN,goweibo);
 		}
@@ -88,7 +89,8 @@
 		
 		private function goreg(e:UserEvent):void
 		{
-			TweenLite.to(_login, .3, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[_login]});
+			var cur:DisplayObject = e.currentTarget as DisplayObject;
+			TweenLite.to(cur, .3, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[cur]});
 			addChild(_reg);
 			_reg.alpha = 0;
 			TweenLite.to(_reg, .4, {alpha:1,delay:.3,ease:Quad.easeOut});

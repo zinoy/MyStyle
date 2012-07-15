@@ -16,24 +16,35 @@
     <uri label="home.fla">file:///C|/GitHub/MyStyle/home.fla</uri>
   </compileList>
   <recentFiles editable="false">
-    <uri label="PictureGrid.as">file:///C|/GitHub/MyStyle/evoque/display/PictureGrid.as</uri>
-    <uri label="UploadAction.as">file:///C|/GitHub/MyStyle/evoque/controls/UploadAction.as</uri>
-    <uri label="WeiboPanel.as">file:///C|/GitHub/MyStyle/evoque/controls/WeiboPanel.as</uri>
-    <uri label="home.fla">file:///C|/GitHub/MyStyle/home.fla</uri>
     <uri label="Shared.as">file:///C|/GitHub/MyStyle/evoque/common/Shared.as</uri>
     <uri label="PhotoInfo.as">file:///C|/GitHub/MyStyle/evoque/display/PhotoInfo.as</uri>
-    <uri label="launcher.fla">file:///C|/GitHub/MyStyle/launcher.fla</uri>
+    <uri label="ButtonBase.as">file:///C|/GitHub/MyStyle/evoque/controls/ButtonBase.as</uri>
+    <uri label="MenuButtonBase.as">file:///C|/GitHub/MyStyle/evoque/controls/MenuButtonBase.as</uri>
     <uri label="PhotoItem.as">file:///C|/GitHub/MyStyle/evoque/display/PhotoItem.as</uri>
-    <uri label="PhotoEvent.as">file:///C|/GitHub/MyStyle/evoque/events/PhotoEvent.as</uri>
     <uri label="MainUI.as">file:///C|/GitHub/MyStyle/evoque/display/MainUI.as</uri>
-    <uri label="PagerBlock.as">file:///C|/GitHub/MyStyle/evoque/display/PagerBlock.as</uri>
-    <uri label="PagerCell.as">file:///C|/GitHub/MyStyle/evoque/display/PagerCell.as</uri>
     <uri label="ActionEvent.as">file:///C|/GitHub/MyStyle/evoque/events/ActionEvent.as</uri>
+    <uri label="Utility.as">file:///C|/GitHub/MyStyle/evoque/common/Utility.as</uri>
+    <uri label="PictureGrid.as">file:///C|/GitHub/MyStyle/evoque/display/PictureGrid.as</uri>
+    <uri label="PagerCell.as">file:///C|/GitHub/MyStyle/evoque/display/PagerCell.as</uri>
+    <uri label="ProgressBar.as">file:///C|/GitHub/MyStyle/evoque/display/ProgressBar.as</uri>
+    <uri label="launcher.fla">file:///C|/GitHub/MyStyle/launcher.fla</uri>
+    <uri label="MainPage.as">file:///C|/GitHub/MyStyle/evoque/MainPage.as</uri>
+    <uri label="WeiboPanel.as">file:///C|/GitHub/MyStyle/evoque/controls/WeiboPanel.as</uri>
+    <uri label="RegisterPanel.as">file:///C|/GitHub/MyStyle/evoque/controls/RegisterPanel.as</uri>
+    <uri label="LoginPanel.as">file:///C|/GitHub/MyStyle/evoque/controls/LoginPanel.as</uri>
+    <uri label="TextBox.as">file:///C|/GitHub/MyStyle/evoque/controls/TextBox.as</uri>
+    <uri label="UserAction.as">file:///C|/GitHub/MyStyle/evoque/controls/UserAction.as</uri>
+    <uri label="PictureEditor.as">file:///C|/GitHub/MyStyle/evoque/controls/PictureEditor.as</uri>
+    <uri label="UploadAction.as">file:///C|/GitHub/MyStyle/evoque/controls/UploadAction.as</uri>
+    <uri label="ShareButtonBase.as">file:///C|/GitHub/MyStyle/evoque/controls/ShareButtonBase.as</uri>
+    <uri label="BottomLinks.as">file:///C|/GitHub/MyStyle/evoque/display/BottomLinks.as</uri>
+    <uri label="main.fla">file:///C|/GitHub/MyStyle/main.fla</uri>
+    <uri label="home.fla">file:///C|/GitHub/MyStyle/home.fla</uri>
+    <uri label="PhotoEvent.as">file:///C|/GitHub/MyStyle/evoque/events/PhotoEvent.as</uri>
+    <uri label="PagerBlock.as">file:///C|/GitHub/MyStyle/evoque/display/PagerBlock.as</uri>
     <uri label="UserButtons.as">file:///C|/GitHub/MyStyle/evoque/controls/UserButtons.as</uri>
     <uri label="FootBar.as">file:///C|/GitHub/MyStyle/evoque/controls/FootBar.as</uri>
-    <uri label="Counter.as">file:///C|/GitHub/MyStyle/evoque/controls/Counter.as</uri>
     <uri label="Launcher.as">file:///C|/GitHub/MyStyle/evoque/Launcher.as</uri>
-    <uri label="MainPage.as">file:///C|/GitHub/MyStyle/evoque/MainPage.as</uri>
   </recentFiles>
   <locations editable="false"/>
 </projectDescription>
