@@ -56,6 +56,7 @@
 
 			ubtns.mainLogin.addEventListener(MouseEvent.CLICK,gologin);
 			ubtns.mainReg.addEventListener(MouseEvent.CLICK,goreg);
+			ubtns.mainLogout.addEventListener(MouseEvent.CLICK,goexit);
 			ui.addEventListener(ActionEvent.UPLOAD_MORE,goupload);
 			ui.addEventListener(ActionEvent.SHOW_RULES,showrules);
 			
@@ -94,8 +95,8 @@
 			swapChildren(foot, border);
 			foot.alpha = 0;
 			TweenLite.to(ui, .4, {alpha:1,ease:Quad.easeOut});
-			TweenLite.to(foot, .4, {alpha:1,ease:Quad.easeOut});
-			TweenLite.delayedCall(.8, ubtns.show);
+			TweenLite.to(foot, .4, {alpha:1,delay:.3,ease:Quad.easeOut});
+			TweenLite.delayedCall(.6, ubtns.show);
 		}
 		
 		private function swfchange():void
@@ -213,6 +214,12 @@
 			TweenLite.to(_user, .4, {alpha:1,ease:Quad.easeOut});
 		}
 		
+		private function goexit(e:MouseEvent):void
+		{
+			Shared.UID = "";
+			ubtns.show();
+		}
+		
 		private function showrules(e:ActionEvent):void
 		{
 			addChild(_rules);
@@ -226,7 +233,7 @@
 			removeChild(obj);
 			if (Shared.UID != "")
 			{
-				ubtns.hide();
+				ubtns.show();
 				if (_uploadPicAfterLogin)
 				{
 					_uploadPicAfterLogin = false;
@@ -277,6 +284,7 @@
 			if (!_detail.loading)
 			{
 				var p:PhotoItem = e.item;
+				p.showloader();
 				_detail.category = p.params.type;
 				_detail.x = e.pos.x;
 				_detail.y = e.pos.y;

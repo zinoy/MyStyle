@@ -4,6 +4,8 @@
 	import flash.events.*;
 	import flash.net.*;
 	
+	import com.asual.swfaddress.SWFAddress;
+	
 	import evoque.common.*;
 	import evoque.events.UserEvent;
 

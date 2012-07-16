@@ -2,6 +2,7 @@
 {
 	import flash.display.*;
 	import flash.events.*;
+	import flash.external.ExternalInterface;
 	
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
@@ -140,6 +141,7 @@
 		
 		private function goupload(e:MouseEvent):void
 		{
+			ExternalInterface.call("pe", "MainMenu", "Click", "Upload");
 			var evt:ActionEvent =  new ActionEvent(ActionEvent.UPLOAD_MORE);
 			dispatchEvent(evt);
 		}

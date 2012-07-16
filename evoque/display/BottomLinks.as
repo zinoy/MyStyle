@@ -52,22 +52,22 @@
 		
 		private function shareWeibo(e:MouseEvent):void
 		{
-			ExternalInterface.call("shareToWeibo", "#不趋同 自趋势#路虎揽胜极光，融英伦灵感，焕瞩目风潮。上传专属您风格的英伦图片，成功转发并@好友，赢取限量版路虎好礼！");
+			ExternalInterface.call("shareToWeibo", "#不趋同 自趋势#路虎揽胜极光，融英伦灵感，焕瞩目风潮。上传专属您风格的英伦图片，成功转发并@ 好友，赢取限量版路虎好礼！");
 		}
 
 		private function shareKaixin(e:MouseEvent):void
 		{
-			ExternalInterface.call("shareToKaixin", "#不趋同 自趋势#路虎揽胜极光，融英伦灵感，焕瞩目风潮。上传专属您风格的英伦图片，成功转发并@好友，赢取限量版路虎好礼！");
+			ExternalInterface.call("shareToKaixin", "#不趋同 自趋势#路虎揽胜极光，融英伦灵感，焕瞩目风潮。上传专属您风格的英伦图片，成功转发并@ 好友，赢取限量版路虎好礼！");
 		}
 
 		private function shareRenren(e:MouseEvent):void
 		{
-			ExternalInterface.call("shareToRenren", "不趋同 自趋势", "路虎揽胜极光，融英伦灵感，焕瞩目风潮。上传专属您风格的英伦图片，成功转发并@好友，赢取限量版路虎好礼！");
+			ExternalInterface.call("shareToRenren", "不趋同 自趋势", "路虎揽胜极光，融英伦灵感，焕瞩目风潮。上传专属您风格的英伦图片，成功转发并@ 好友，赢取限量版路虎好礼！");
 		}
 
 		private function shareDouban(e:MouseEvent):void
 		{
-			ExternalInterface.call("shareToDouban", "#不趋同 自趋势#路虎揽胜极光，融英伦灵感，焕瞩目风潮。上传专属您风格的英伦图片，成功转发并@好友，赢取限量版路虎好礼！");
+			ExternalInterface.call("shareToDouban", "#不趋同 自趋势#路虎揽胜极光，融英伦灵感，焕瞩目风潮。上传专属您风格的英伦图片，成功转发并@ 好友，赢取限量版路虎好礼！");
 		}
 
 	}

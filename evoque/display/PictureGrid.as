@@ -312,7 +312,6 @@
 		{
 			var evt:PhotoEvent = new PhotoEvent(PhotoEvent.SHOW_DETAIL);
 			var obj:PhotoItem = e.currentTarget as PhotoItem;
-			obj.showloader();
 			obj.params.width = _cellwidth;
 			var p:Point = obj.point.clone();
 			p.offset(_picpanel.x, _picpanel.y);

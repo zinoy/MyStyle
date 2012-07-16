@@ -2,6 +2,7 @@
 {
 	import flash.display.*;
 	import flash.events.MouseEvent;
+	import flash.external.ExternalInterface;
 	
 	import com.asual.swfaddress.SWFAddress;
 	import evoque.events.ActionEvent;
@@ -59,24 +60,30 @@
 			switch (idx)
 			{
 				case 0:
+					ExternalInterface.call("pe", "MainMenu", "Click", "Home");
 					nav = "home";
 					break;
 				case 1:
+					ExternalInterface.call("pe", "MainMenu", "Click", "Rules");
 					//_list[idx].active = false;
 					_list[_lastActive].active = true;
 					var evt:ActionEvent = new ActionEvent(ActionEvent.SHOW_RULES);
 					dispatchEvent(evt);
 					return;
 				case 2:
+					ExternalInterface.call("pe", "MainMenu", "Click", "Prize");
 					nav = "prize";
 					break;
 				case 3:
+					ExternalInterface.call("pe", "MainMenu", "Click", "Showroom");
 					nav = "showroom";
 					break;
 				case 4:
+					ExternalInterface.call("pe", "MainMenu", "Click", "Evoque");
 					nav = "evoque";
 					break;
 				case 5:
+					ExternalInterface.call("pe", "MainMenu", "Click", "Events");
 					nav = "events";
 					break;
 				default:
@@ -88,7 +95,6 @@
 		
 		private function hideActive():void
 		{
-			trace("hide");
 			for each (var it:MenuButtonBase in _list)
 			{
 				if (it.active)
