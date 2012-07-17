@@ -48,7 +48,6 @@
 			_user.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
 			_success.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
 			_success.addEventListener(ActionEvent.SHOW_GALLERY,showgallery);
-			_success.addEventListener(ActionEvent.UPLOAD_MORE,goupload);
 
 			_detail = new PhotoInfo();
 			_detail.addEventListener(MouseEvent.ROLL_OUT,hidedetail);

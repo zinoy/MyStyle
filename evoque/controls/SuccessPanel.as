@@ -3,6 +3,7 @@
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
+	import com.asual.swfaddress.SWFAddress;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
 	
@@ -55,8 +56,7 @@
 		{
 			var evt:ActionEvent = new ActionEvent(ActionEvent.CLOSE_PANEL);
 			dispatchEvent(evt);
-			var evt2:ActionEvent = new ActionEvent(ActionEvent.SHOW_GALLERY);
-			dispatchEvent(evt2);
+			SWFAddress.setValue("showroom");
 		}
 		
 	}

@@ -5,10 +5,9 @@
 	import flash.geom.*;
 	import flash.net.*;
 	import flash.ui.*;
+	import flash.utils.*;
 	
-	import com.greensock.events.LoaderEvent;
-	import com.greensock.loading.ImageLoader;
-	import com.greensock.loading.display.ContentDisplay;
+	import com.adobe.images.*;
 	
 	import evoque.common.Shared;
 	import evoque.display.Preloader;
@@ -19,7 +18,7 @@
 		
 		private var _defimg:DisplayObject;
 		private var _loading:Preloader;
-		private var _img:ContentDisplay;
+		private var _img:Sprite;
 		private var _dragstart:Point;
 		private var _dragrect:Rectangle;
 		private var _dragobj:Sprite;
@@ -96,17 +95,31 @@
 				_img.y = _dragrect.bottom;
 		}
 		
-		public function load(url:String):void
+		/*public function load(url:String):void
 		{
 			var loader:ImageLoader = new ImageLoader(Shared.URL_BASE + url,{container:this,centerRegistration:true,onComplete:showimg});
 			loader.load();
+		}*/
+		public function load(file:FileReference):void
+		{
+			trace(file.type);
+			var loader:Loader = new Loader();
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,showimg);
+			loader.loadBytes(file.data);
 		}
 		
-		private function showimg(e:LoaderEvent):void
+		private function showimg(e:Event):void
 		{
-			var loader:ImageLoader = ImageLoader(e.target);
-			_img = loader.content as ContentDisplay;
+			var loader:LoaderInfo = LoaderInfo(e.target);
+			loader.removeEventListener(Event.COMPLETE,showimg);
+			var bmp:Bitmap = loader.content as Bitmap;
+			_img = new Sprite();
+			_img.addChild(bmp);
+			bmp.x = bmp.width / 2 * -1;
+			bmp.y = bmp.height / 2 * -1;
+			addChild(_img);
 			_defimg = getChildAt(0);
+			
 			var msk:Shape = new Shape();
 			msk.graphics.beginFill(0x00ff00,0);
 			msk.graphics.drawRect(0,0,_defimg.width,_defimg.height);
@@ -157,7 +170,7 @@
 			obj.scaleX = obj.scaleY = ratio;
 		}
 		
-		private function center(obj:ContentDisplay):void
+		private function center(obj:DisplayObject):void
 		{
 			obj.x = _dragobj.width / 2;
 			obj.y = _dragobj.height / 2;

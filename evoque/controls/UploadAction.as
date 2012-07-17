@@ -19,6 +19,7 @@
 		private var _tempurl:String;
 		private var _category:int = 0;
 		private var _friends:FriendsList;
+		private var _file:FileReference;
 
 		public function UploadAction()
 		{
@@ -46,10 +47,10 @@
 		
 		private function browse(e:MouseEvent):void
 		{
-			var file:FileReference = new FileReference();
-			file.addEventListener(Event.SELECT,upload);
-			var imageType:Array = [new FileFilter("图片文件 (*.jpg, *.gif, *.png)", "*.jpg;*.jpeg;*.gif;*.png")];
-			file.browse(imageType);
+			_file = new FileReference();
+			_file.addEventListener(Event.SELECT,upload);
+			var imageType:Array = [new FileFilter("图片文件 (*.jpg, *.gif, *.png)", "*.jpg;*.jpeg;*.gif*.png")];
+			_file.browse(imageType);
 		}
 		
 		private function closepanel(e:MouseEvent):void
@@ -65,22 +66,22 @@
 		
 		private function upload(e:Event):void
 		{
-			var file:FileReference = FileReference(e.target);
-			
-			var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
-			var d:URLVariables = new URLVariables();
-			d.ac = "upload";
-			d.hash = Utility.hash(d);
-			req.method = "post";
-			req.data = d;
-			file.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA,step2);
-			file.addEventListener(IOErrorEvent.IO_ERROR,error);
-			file.upload(req);
+			//var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
+			//var d:URLVariables = new URLVariables();
+			//d.ac = "upload";
+			//d.hash = Utility.hash(d);
+			//req.method = "post";
+			//req.data = d;
+			//file.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA,step2);
+			_file.addEventListener(IOErrorEvent.IO_ERROR,error);
+			//file.upload(req);
+			_file.addEventListener(Event.COMPLETE,startedit);
+			_file.load();
 			toggleButtonStatus(btnBrowse);
 			editor.loading();
 		}
 		
-		private function step2(e:DataEvent):void
+		/*private function step2(e:DataEvent):void
 		{
 			var xml:XML = XML(e.data);
 			trace(xml);
@@ -90,7 +91,7 @@
 				editor.addEventListener(Event.COMPLETE,startedit);
 				editor.load(_tempurl);
 			}
-		}
+		}*/
 		
 		private function setcate(e:MouseEvent):void
 		{
@@ -119,6 +120,8 @@
 		
 		private function startedit(e:Event):void
 		{
+			editor.load(_file);
+
 			for (var i:int=1; i<5; i++)
 			{
 				cate["btnc_"+i].addEventListener(MouseEvent.CLICK,setcate);
@@ -155,13 +158,27 @@
 		
 		private function save(e:MouseEvent):void
 		{
+			var ck:RegExp = /@[^@\s]+/g;
+			var count:int = 0;
+			var result:Object = ck.exec(weibo.tbweibo.text);
+			while (result != null)
+			{
+				count++;
+				result = ck.exec(weibo.tbweibo.text);
+			}
+			if (count > 3)
+			{
+				ExternalInterface.call("alert", "你最多只能@三位好友。");
+				return;
+			}
+			
 			weibo.btnupload.removeEventListener(MouseEvent.CLICK,save);
 			var loader:URLLoader = new URLLoader();
 			var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
 			var d:URLVariables = new URLVariables();
-			d.ac = "savepic";
+			d.ac = "uploadpic";
 			d.uid = Shared.UID;
-			d.url = _tempurl;
+			//d.url = _tempurl;
 			var rect:Rectangle = editor.square;
 			d.x = rect.x;
 			d.y = rect.y;
@@ -171,7 +188,10 @@
 			d.comment = Utility.trim(weibo.tbweibo.text);
 			d.category = _category;
 			d.hash = Utility.hash(d);
-			req.data = d;
+			req.contentType = "multipart/form-data; boundary=" + UploadPostHelper.getBoundary();
+			var header:URLRequestHeader = new URLRequestHeader( "enctype", "multipart/form-data" );
+			req.requestHeaders.push(header);
+			req.data = UploadPostHelper.getPostData("file", _file.data, d);
 			req.method = "post";
 			loader.addEventListener(Event.COMPLETE,end);
 			loader.addEventListener(IOErrorEvent.IO_ERROR,error);
@@ -181,6 +201,20 @@
 		
 		private function addfriend(e:ActionEvent):void
 		{
+			var ck:RegExp = /@[^@\s]+/g;
+			var count:int = 0;
+			var result:Object = ck.exec(weibo.tbweibo.text);
+			while (result != null)
+			{
+				count++;
+				result = ck.exec(weibo.tbweibo.text);
+			}
+			if (count >= 3)
+			{
+				ExternalInterface.call("alert", "你最多只能@三位好友。");
+				return;
+			}
+			
 			var idx:int = weibo.tbweibo.selectionBeginIndex;
 			if (weibo.tbweibo.text.length + e.text.length + 2 - (weibo.tbweibo.selectionEndIndex - idx) > 140)
 				return;
@@ -199,7 +233,7 @@
 			trace(xml);
 			if (xml.code == 0)
 			{
-				ExternalInterface.call("shareToWeibo",Utility.trim(weibo.tbweibo.text),Shared.IMAGE_PATH + xml.img + "_o_.jpg");
+				//ExternalInterface.call("shareToWeibo",Utility.trim(weibo.tbweibo.text),Shared.IMAGE_PATH + xml.img + "_o_.jpg");
 				TweenLite.to(this, .4, {alpha:0,ease:Quad.easeOut,onComplete:success});
 			}
 		}
@@ -212,7 +246,7 @@
 		
 		private function error(e:IOErrorEvent):void
 		{
-			trace(e.text);
+			trace(e);
 		}
 		
 		private function toggleButtonStatus(btn:SimpleButton):void
