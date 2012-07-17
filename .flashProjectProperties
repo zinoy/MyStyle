@@ -6,7 +6,7 @@
   <classTemplate>file:///F|/Users/Zino/AppData/Local/Adobe/Flash CS6/en_US/Configuration/ActionScript 3.0/Templates/standardClass_as3.as</classTemplate>
   <classPath>.</classPath>
   <defaultApp>file:///C|/GitHub/MyStyle/launcher.fla</defaultApp>
-  <rootURI>file:///D|/Works/Projects/flash/MyStyle/</rootURI>
+  <rootURI>file:///C|/GitHub/MyStyle/</rootURI>
   <flexSDK/>
   <sources editable="false"/>
   <libraries editable="false"/>
@@ -15,6 +15,7 @@
     <uri label="main.fla">file:///C|/GitHub/MyStyle/main.fla</uri>
     <uri label="home.fla">file:///C|/GitHub/MyStyle/home.fla</uri>
   </compileList>
+<<<<<<< HEAD
   <recentFiles editable="false">
     <uri label="MainPage.as">file:///D|/Works/Projects/flash/MyStyle/evoque/MainPage.as</uri>
     <uri label="UploadAction.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/UploadAction.as</uri>
@@ -31,5 +32,8 @@
     <uri label="main5.fla">file:///D|/Works/Projects/flash/MyStyle/main5.fla</uri>
     <uri label="launcher.fla">file:///D|/Works/Projects/flash/MyStyle/launcher.fla</uri>
   </recentFiles>
+=======
+  <recentFiles editable="false"/>
+>>>>>>> 5066ff838bc8bcae8bb19e0496cb5a320fc4f245
   <locations editable="false"/>
 </projectDescription>
