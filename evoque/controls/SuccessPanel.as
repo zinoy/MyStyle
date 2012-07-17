@@ -53,8 +53,10 @@
 		
 		private function gogallery(e:MouseEvent):void
 		{
-			var evt:ActionEvent = new ActionEvent(ActionEvent.SHOW_GALLERY);
+			var evt:ActionEvent = new ActionEvent(ActionEvent.CLOSE_PANEL);
 			dispatchEvent(evt);
+			var evt2:ActionEvent = new ActionEvent(ActionEvent.SHOW_GALLERY);
+			dispatchEvent(evt2);
 		}
 		
 	}

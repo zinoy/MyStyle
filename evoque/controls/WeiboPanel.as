@@ -2,6 +2,7 @@
 {
 	import flash.display.Sprite;
 	import flash.events.*;
+	import flash.external.ExternalInterface;
 	import flash.net.*;
 	
 	import com.asual.swfaddress.SWFAddress;
@@ -30,7 +31,7 @@
 			var d:URLVariables = new URLVariables();
 			d.client_id = Shared.APP_KEY;
 			d.response_type = "code";
-			d.redirect_uri = Shared.REDIRECT_URL;
+			d.redirect_uri = ExternalInterface.call("getdomain") + Shared.REDIRECT_URL;
 			d.state = Math.random();
 			req.data = d;
 			navigateToURL(req);
