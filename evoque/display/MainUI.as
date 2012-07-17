@@ -52,6 +52,28 @@
 		
 		public function childview():void
 		{
+			count.show("child");
+			count.x = -32;
+			count.y = 32;
+			nav.x = 24;
+			nav.y = 22;
+			nav.black.alpha = .4;
+			if (contains(btnopen))
+				removeChild(btnopen);
+			if (contains(btnmini))
+				removeChild(btnmini);
+			addChild(count);
+			addChild(nav);
+			addChild(btnupload);
+			this.x = 374;
+			this.y = 459;
+			removeEventListener(Event.ENTER_FRAME, autohide);
+			removeEventListener(MouseEvent.ROLL_OVER, over);
+			removeEventListener(MouseEvent.ROLL_OUT, out);
+		}
+		
+		public function miniview(y:Number):void
+		{
 			count.x = -32;
 			count.y = 32;
 			nav.x = nav.y = 23;
@@ -63,11 +85,6 @@
 			else
 				this.x = 500;
 			this.y = 528;
-		}
-		
-		public function miniview(y:Number):void
-		{
-			childview();
 			removeChild(count);
 			removeChild(nav);
 			removeChild(btnmini);

@@ -66,37 +66,15 @@
 		
 		private function upload(e:Event):void
 		{
-			//var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
-			//var d:URLVariables = new URLVariables();
-			//d.ac = "upload";
-			//d.hash = Utility.hash(d);
-			//req.method = "post";
-			//req.data = d;
-			//file.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA,step2);
-			_file.addEventListener(IOErrorEvent.IO_ERROR,error);
-			//file.upload(req);
 			_file.addEventListener(Event.COMPLETE,startedit);
 			_file.load();
 			toggleButtonStatus(btnBrowse);
 			editor.loading();
 		}
 		
-		/*private function step2(e:DataEvent):void
-		{
-			var xml:XML = XML(e.data);
-			trace(xml);
-			if (xml.code == 0)
-			{
-				_tempurl = xml.url;
-				editor.addEventListener(Event.COMPLETE,startedit);
-				editor.load(_tempurl);
-			}
-		}*/
-		
 		private function setcate(e:MouseEvent):void
 		{
 			var obj:Object = e.currentTarget;
-			trace(obj);
 			_category = Number(obj.name.split("_")[1]);
 			for (var i:int=1; i<5; i++)
 			{
@@ -178,7 +156,6 @@
 			var d:URLVariables = new URLVariables();
 			d.ac = "uploadpic";
 			d.uid = Shared.UID;
-			//d.url = _tempurl;
 			var rect:Rectangle = editor.square;
 			d.x = rect.x;
 			d.y = rect.y;
@@ -233,7 +210,6 @@
 			trace(xml);
 			if (xml.code == 0)
 			{
-				//ExternalInterface.call("shareToWeibo",Utility.trim(weibo.tbweibo.text),Shared.IMAGE_PATH + xml.img + "_o_.jpg");
 				TweenLite.to(this, .4, {alpha:0,ease:Quad.easeOut,onComplete:success});
 			}
 		}
@@ -246,6 +222,7 @@
 		
 		private function error(e:IOErrorEvent):void
 		{
+			weibo.btnupload.addEventListener(MouseEvent.CLICK,save);
 			trace(e);
 		}
 		

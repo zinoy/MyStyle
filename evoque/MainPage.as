@@ -77,7 +77,7 @@
 			removeChild(_user);
 			if (Shared.UID != "")
 			{
-				ubtns.hide();
+				ubtns.show();
 				if (_uploadPicAfterLogin)
 				{
 					_uploadPicAfterLogin = false;
@@ -90,11 +90,10 @@
 		{
 			addChild(ui);
 			ui.alpha = 0;
-			addChild(foot);
-			swapChildren(foot, border);
+			addChildAt(foot, numChildren);
 			foot.alpha = 0;
 			TweenLite.to(ui, .4, {alpha:1,ease:Quad.easeOut});
-			TweenLite.to(foot, .4, {alpha:1,delay:.3,ease:Quad.easeOut});
+			TweenLite.to(foot, .3, {alpha:1,delay:.3,ease:Quad.easeOut});
 			TweenLite.delayedCall(.6, ubtns.show);
 		}
 		
@@ -178,9 +177,9 @@
 				if (_current == 0)
 				{
 					_home = _child;
-					_child = null;
 					_home.alpha = 0;
-					TweenLite.to(_home, .4, {alpha:1,ease:Quad.easeOut,onComplete:showContent});
+					TweenLite.to(_home, .4, {alpha:1,ease:Quad.easeOut});
+					showContent();
 					ui.homeview();
 				}
 				else
@@ -191,7 +190,7 @@
 			}
 			else
 			{
-				_child = null;
+				_child = _home;
 				addChildAt(_home, 0);
 				ui.homeview();
 			}

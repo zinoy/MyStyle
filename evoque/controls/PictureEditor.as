@@ -95,14 +95,8 @@
 				_img.y = _dragrect.bottom;
 		}
 		
-		/*public function load(url:String):void
-		{
-			var loader:ImageLoader = new ImageLoader(Shared.URL_BASE + url,{container:this,centerRegistration:true,onComplete:showimg});
-			loader.load();
-		}*/
 		public function load(file:FileReference):void
 		{
-			trace(file.type);
 			var loader:Loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,showimg);
 			loader.loadBytes(file.data);
@@ -113,6 +107,7 @@
 			var loader:LoaderInfo = LoaderInfo(e.target);
 			loader.removeEventListener(Event.COMPLETE,showimg);
 			var bmp:Bitmap = loader.content as Bitmap;
+			bmp.smoothing = true;
 			_img = new Sprite();
 			_img.addChild(bmp);
 			bmp.x = bmp.width / 2 * -1;
