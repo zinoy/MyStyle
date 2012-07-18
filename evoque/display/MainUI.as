@@ -26,7 +26,7 @@
 			
 			btnopen.addEventListener(MouseEvent.CLICK, togglemini);
 			btnupload.addEventListener(MouseEvent.CLICK, goupload);
-			btnmini.addEventListener(MouseEvent.CLICK, goupload);
+			btnchild.addEventListener(MouseEvent.CLICK, goupload);
 			nav.addEventListener(ActionEvent.SHOW_RULES,showrules);
 		}
 		
@@ -36,10 +36,11 @@
 			count.x = count.y = 65;
 			nav.x = nav.y = 122;
 			nav.black.alpha = 0;
+			uploadbg.alpha = 0;
 			if (contains(btnopen))
 				removeChild(btnopen);
-			if (contains(btnmini))
-				removeChild(btnmini);
+			if (contains(btnchild))
+				removeChild(btnchild);
 			addChild(count);
 			addChild(nav);
 			addChild(btnupload);
@@ -58,10 +59,11 @@
 			nav.x = 24;
 			nav.y = 22;
 			nav.black.alpha = .4;
+			uploadbg.alpha = .5;
 			if (contains(btnopen))
 				removeChild(btnopen);
-			if (contains(btnmini))
-				removeChild(btnmini);
+			if (contains(btnchild))
+				removeChild(btnchild);
 			addChild(count);
 			addChild(nav);
 			addChild(btnupload);
@@ -78,8 +80,9 @@
 			count.y = 32;
 			nav.x = nav.y = 23;
 			nav.black.alpha = 1;
+			uploadbg.alpha = 1;
 			removeChild(btnupload);
-			addChild(btnmini);
+			addChild(btnchild);
 			if (stage.stageWidth / 2 + (stage.stageWidth - 1000) / 2 < 626)
 				this.x = stage.stageWidth - 626 + (stage.stageWidth - 1000) / 2;
 			else
@@ -87,7 +90,7 @@
 			this.y = 528;
 			removeChild(count);
 			removeChild(nav);
-			removeChild(btnmini);
+			removeChild(btnchild);
 			addChild(btnopen);
 			btnopen.alpha = 1;
 			this.y = y;
@@ -100,21 +103,21 @@
 		
 		private function togglemini(e:MouseEvent):void
 		{
-			if (contains(btnmini))
+			if (contains(btnchild))
 			{
 				addChild(btnopen);
 				btnopen.alpha = 0;
 				TweenLite.to(btnopen, .4, {alpha:1,ease:Quad.easeOut});
 				TweenLite.to(count, .4, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[count]});
 				TweenLite.to(nav, .4, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[nav]});
-				TweenLite.to(btnmini, .4, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[btnmini]});
+				TweenLite.to(btnchild, .4, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[btnchild]});
 				TweenLite.to(this, .4, {y:this.y + 72,ease:Quad.easeOut});
 			}
 			else
 			{
-				addChild(btnmini);
-				btnmini.alpha = 0;
-				TweenLite.to(btnmini, .4, {alpha:1,ease:Quad.easeOut});
+				addChild(btnchild);
+				btnchild.alpha = 0;
+				TweenLite.to(btnchild, .4, {alpha:1,ease:Quad.easeOut});
 				addChild(count);
 				count.show("left");
 				count.alpha = 0;

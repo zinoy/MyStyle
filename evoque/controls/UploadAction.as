@@ -152,7 +152,7 @@
 			
 			weibo.btnupload.removeEventListener(MouseEvent.CLICK,save);
 			var loader:URLLoader = new URLLoader();
-			var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
+			var req:URLRequest = new URLRequest(ExternalInterface.call("getdomain") + "api/Action.aspx");
 			var d:URLVariables = new URLVariables();
 			d.ac = "uploadpic";
 			d.uid = Shared.UID;
