@@ -2,6 +2,7 @@
 {
 	import flash.display.*;
 	import flash.events.MouseEvent;
+	import flash.net.*;
 
 	import evoque.controls.LightScrollBar;
 	import evoque.events.ScrollEvent;
@@ -36,6 +37,10 @@
 
 			drag1.addEventListener(MouseEvent.MOUSE_WHEEL, scrollcontent);
 			drag2.addEventListener(MouseEvent.MOUSE_WHEEL, scrollcontent);
+			btnb1.addEventListener(MouseEvent.CLICK, gobrochure);
+			btnb2.addEventListener(MouseEvent.CLICK, gobrochure);
+			btnp1.addEventListener(MouseEvent.CLICK, gospec);
+			btnp2.addEventListener(MouseEvent.CLICK, gospec);
 		}
 
 		private function updatescroll(e:ScrollEvent):void
@@ -65,6 +70,18 @@
 				cnt.y = len + TOP;
 			}
 			this["_sbar" + i].pos = (cnt.y - TOP) / len;
+		}
+		
+		private function gobrochure(e:MouseEvent):void
+		{
+			var req:URLRequest = new URLRequest("files/12my-evoque_brochure.pdf");
+			navigateToURL(req);
+		}
+		
+		private function gospec(e:MouseEvent):void
+		{
+			var req:URLRequest = new URLRequest("files/12my_evoque spec sheet.pdf");
+			navigateToURL(req);
 		}
 
 	}
