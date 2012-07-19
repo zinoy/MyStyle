@@ -2,14 +2,19 @@
 {
 	import flash.display.*;
 	import flash.events.MouseEvent;
+	import flash.external.ExternalInterface;
 	
-	import evoque.controls.ColorScrollBar;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.*;
+	
+	import evoque.controls.*;
 	import evoque.events.ScrollEvent;
 
 	public class EventsPage extends Sprite
 	{
 		private const TOP:Number = 101;
 		private var sbar:ColorScrollBar;
+		private var td:TestDrivePanel;
 
 		public function EventsPage()
 		{
@@ -18,6 +23,8 @@
 		
 		private function init():void
 		{
+			td = new TestDrivePanel();
+			
 			sbar = new ColorScrollBar();
 			sbar.addEventListener(ScrollEvent.SCROLL_UPDATE, updatescroll);
 			addChild(sbar);
@@ -25,6 +32,15 @@
 			sbar.y = TOP;
 			
 			drag.addEventListener(MouseEvent.MOUSE_WHEEL, scrollcontent);
+			btnGo.addEventListener(MouseEvent.CLICK, showtd);
+		}
+		
+		private function showtd(e:MouseEvent):void
+		{
+			ExternalInterface.call("pe", "EventsPage", "Open", "TestDrive");
+			addChild(td);
+			td.alpha = 0;
+			TweenLite.to(td, .4, {alpha:1,ease:Quad.easeOut});
 		}
 		
 		private function updatescroll(e:ScrollEvent):void

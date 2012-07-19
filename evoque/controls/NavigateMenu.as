@@ -21,7 +21,15 @@
 		
 		private function init():void
 		{
-			_bg = getChildAt(0) as Shape;
+			_bg = new Shape();
+			_bg.graphics.beginFill(0xffffff);
+			_bg.graphics.moveTo(0, 0);
+			_bg.graphics.lineTo(551, 0);
+			_bg.graphics.lineTo(603, 52);
+			_bg.graphics.lineTo(52, 52);
+			_bg.graphics.lineTo(0, 0);
+			_bg.graphics.endFill();
+			addChildAt(_bg, 0);
 			_blackBg = new Shape();
 			_blackBg.graphics.beginFill(0);
 			_blackBg.graphics.moveTo(0, 0);
@@ -43,6 +51,11 @@
 		public function get black():Shape
 		{
 			return _blackBg;
+		}
+		
+		public function get white():Shape
+		{
+			return _bg;
 		}
 		
 		public function setCurrent(index:int):void

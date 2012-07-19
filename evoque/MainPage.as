@@ -91,6 +91,7 @@
 			addChild(ui);
 			ui.alpha = 0;
 			addChildAt(foot, numChildren);
+			setChildIndex(border, numChildren - 1);
 			foot.alpha = 0;
 			TweenLite.to(ui, .4, {alpha:1,ease:Quad.easeOut});
 			TweenLite.to(foot, .3, {alpha:1,delay:.3,ease:Quad.easeOut});
@@ -198,6 +199,7 @@
 		
 		private function gologin(e:MouseEvent):void
 		{
+			ExternalInterface.call("pe", "MainPage", "Click", "Login");
 			_user.showpanel();
 			addChild(_user);
 			_user.alpha = 0;
@@ -206,6 +208,7 @@
 		
 		private function goreg(e:MouseEvent):void
 		{
+			ExternalInterface.call("pe", "MainPage", "Click", "Register");
 			_user.showpanel("reg");
 			addChild(_user);
 			_user.alpha = 0;
@@ -214,6 +217,7 @@
 		
 		private function goexit(e:MouseEvent):void
 		{
+			ExternalInterface.call("pe", "MainPage", "Click", "Logout");
 			Shared.UID = "";
 			ubtns.show();
 		}

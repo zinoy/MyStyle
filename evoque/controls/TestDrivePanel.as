@@ -4,6 +4,9 @@
 	import flash.events.*;
 	import flash.net.*;
 	
+	import com.greensock.TweenLite;
+	import com.greensock.easing.*;
+	
 	import evoque.common.*;
 
 	public class TestDrivePanel extends Sprite
@@ -22,23 +25,24 @@
 		{
 			_tbname = new TextBox(true);
 			addChild(_tbname);
-			_tbname.x = 449.2;
+			_tbname.x = 414.3;
 			_tbname.y = 220.6;
 			_tbmobile = new TextBox(true);
 			_tbmobile.pattern = BuildInPatterns.MOBILE_PHONE;
 			addChild(_tbmobile);
-			_tbmobile.x = 449.2;
+			_tbmobile.x = 414.3;
 			_tbmobile.y = 248.6;
 			_tbmail = new TextBox(true);
 			_tbmail.pattern = BuildInPatterns.EMAIL_ADDRESS;
 			addChild(_tbmail);
-			_tbmail.x = 449.2;
+			_tbmail.x = 414.3;
 			_tbmail.y = 276.6;
 			_errmsg = new ErrorPanel();
-			_errmsg.x = 637;
+			_errmsg.x = 605;
 			_errmsg.y = 361.05;
 			
-			btnGo.addEventListener(MouseEvent.CLICK,go);
+			btnGo.addEventListener(MouseEvent.CLICK, go);
+			btnClose.addEventListener(MouseEvent.CLICK, hide);
 		}
 		
 		private function go(e:MouseEvent):void
@@ -49,6 +53,10 @@
 			}
 			if (!haserr(_tbmobile.isVaild))
 			{
+				if (_tbmobile.isVaild == ErrorType.INCORRECT_FORMAT)
+				{
+					_errmsg.showmsg(8);
+				}
 				return;
 			}
 			if (!haserr(_tbmail.isVaild))
@@ -62,9 +70,12 @@
 			d.phone = Utility.trim(_tbmobile.text);
 			d.mail = Utility.trim(_tbmail.text);
 			d.hash = Utility.hash(d);
+			req.method = "post";
+			req.data = d;
 			var loader:URLLoader = new URLLoader();
 			loader.addEventListener(Event.COMPLETE, end);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, error);
+			loader.load(req);
 		}
 		
 		private function haserr(mg:int):Boolean
@@ -95,13 +106,19 @@
 			trace(xml);
 			if (xml.code == 0)
 			{
-				
+				hide(null);
 			}
+		}
+		
+		private function hide(e:MouseEvent):void
+		{
+			TweenLite.to(this, .4, {alpha:0,ease:Quad.easeOut,onComplete:parent.removeChild,onCompleteParams:[this]});
 		}
 		
 		private function error(e:IOErrorEvent):void
 		{
-			trace(e);
+			var loader:URLLoader = URLLoader(e.target);
+			trace(loader.data);
 		}
 		
 	}

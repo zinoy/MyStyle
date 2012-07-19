@@ -36,6 +36,7 @@
 			count.x = count.y = 65;
 			nav.x = nav.y = 122;
 			nav.black.alpha = 0;
+			nav.white.alpha = .1;
 			uploadbg.alpha = 0;
 			if (contains(btnopen))
 				removeChild(btnopen);
@@ -59,14 +60,15 @@
 			nav.x = 24;
 			nav.y = 22;
 			nav.black.alpha = .4;
+			nav.white.alpha = 0;
 			uploadbg.alpha = .5;
 			if (contains(btnopen))
 				removeChild(btnopen);
-			if (contains(btnchild))
-				removeChild(btnchild);
+			if (contains(btnupload))
+				removeChild(btnupload);
+			addChild(btnchild);
 			addChild(count);
 			addChild(nav);
-			addChild(btnupload);
 			this.x = 374;
 			this.y = 459;
 			removeEventListener(Event.ENTER_FRAME, autohide);
@@ -80,6 +82,7 @@
 			count.y = 32;
 			nav.x = nav.y = 23;
 			nav.black.alpha = 1;
+			nav.white.alpha = 0;
 			uploadbg.alpha = 1;
 			removeChild(btnupload);
 			addChild(btnchild);

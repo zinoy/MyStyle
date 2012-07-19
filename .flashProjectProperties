@@ -6,7 +6,7 @@
   <classTemplate>file:///F|/Users/Zino/AppData/Local/Adobe/Flash CS6/en_US/Configuration/ActionScript 3.0/Templates/standardClass_as3.as</classTemplate>
   <classPath>.</classPath>
   <defaultApp>file:///C|/GitHub/MyStyle/launcher.fla</defaultApp>
-  <rootURI>file:///C|/GitHub/MyStyle/</rootURI>
+  <rootURI>file:///D|/Works/Projects/flash/MyStyle/</rootURI>
   <flexSDK/>
   <sources editable="false"/>
   <libraries editable="false"/>
@@ -16,29 +16,20 @@
     <uri label="home.fla">file:///C|/GitHub/MyStyle/home.fla</uri>
   </compileList>
   <recentFiles editable="false">
-    <uri label="main.fla">file:///C|/GitHub/MyStyle/main.fla</uri>
-    <uri label="AuthortimeSharedAssets.fla">file:///C|/GitHub/MyStyle/AuthortimeSharedAssets.fla</uri>
-    <uri label="RegisterPanel.as">file:///C|/GitHub/MyStyle/evoque/controls/RegisterPanel.as</uri>
-    <uri label="ColorScrollBar.as">file:///C|/GitHub/MyStyle/evoque/controls/ColorScrollBar.as</uri>
-    <uri label="LightScrollBar.as">file:///C|/GitHub/MyStyle/evoque/controls/LightScrollBar.as</uri>
-    <uri label="VehiclePage.as">file:///C|/GitHub/MyStyle/evoque/VehiclePage.as</uri>
-    <uri label="events.fla">file:///C|/GitHub/MyStyle/events.fla</uri>
-    <uri label="MainUI.as">file:///C|/GitHub/MyStyle/evoque/display/MainUI.as</uri>
-    <uri label="Shared.as">file:///C|/GitHub/MyStyle/evoque/common/Shared.as</uri>
-    <uri label="UploadAction.as">file:///C|/GitHub/MyStyle/evoque/controls/UploadAction.as</uri>
-    <uri label="WeiboPanel.as">file:///C|/GitHub/MyStyle/evoque/controls/WeiboPanel.as</uri>
-    <uri label="evoque.fla">file:///C|/GitHub/MyStyle/evoque.fla</uri>
-    <uri label="home.fla">file:///C|/GitHub/MyStyle/home.fla</uri>
-    <uri label="Counter.as">file:///C|/GitHub/MyStyle/evoque/display/Counter.as</uri>
-    <uri label="MainPage.as">file:///C|/GitHub/MyStyle/evoque/MainPage.as</uri>
-    <uri label="NavigateMenu.as">file:///C|/GitHub/MyStyle/evoque/controls/NavigateMenu.as</uri>
-    <uri label="FriendsList.as">file:///C|/GitHub/MyStyle/evoque/controls/FriendsList.as</uri>
-    <uri label="ScrollEvent.as">file:///C|/GitHub/MyStyle/evoque/events/ScrollEvent.as</uri>
-    <uri label="PictureGrid.as">file:///C|/GitHub/MyStyle/evoque/display/PictureGrid.as</uri>
-    <uri label="FriendItem.as">file:///C|/GitHub/MyStyle/evoque/controls/FriendItem.as</uri>
-    <uri label="PictureEditor.as">file:///C|/GitHub/MyStyle/evoque/controls/PictureEditor.as</uri>
-    <uri label="ScrollBar.as">file:///C|/GitHub/MyStyle/evoque/controls/ScrollBar.as</uri>
-    <uri label="UserAction.as">file:///C|/GitHub/MyStyle/evoque/controls/UserAction.as</uri>
+    <uri label="PhotoInfo.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/PhotoInfo.as</uri>
+    <uri label="UserButtons.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/UserButtons.as</uri>
+    <uri label="UserAction.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/UserAction.as</uri>
+    <uri label="ErrorType.as">file:///D|/Works/Projects/flash/MyStyle/evoque/common/ErrorType.as</uri>
+    <uri label="evoque.fla">file:///D|/Works/Projects/flash/MyStyle/evoque.fla</uri>
+    <uri label="events.fla">file:///D|/Works/Projects/flash/MyStyle/events.fla</uri>
+    <uri label="BottomLinks.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/BottomLinks.as</uri>
+    <uri label="MainUI.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/MainUI.as</uri>
+    <uri label="NavigateMenu.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/NavigateMenu.as</uri>
+    <uri label="MainPage.as">file:///D|/Works/Projects/flash/MyStyle/evoque/MainPage.as</uri>
+    <uri label="main5.fla">file:///D|/Works/Projects/flash/MyStyle/main5.fla</uri>
+    <uri label="WeiboPanel.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/WeiboPanel.as</uri>
+    <uri label="BuildInPatterns.as">file:///D|/Works/Projects/flash/MyStyle/evoque/common/BuildInPatterns.as</uri>
+    <uri label="TestDrivePanel.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/TestDrivePanel.as</uri>
   </recentFiles>
   <locations editable="false"/>
 </projectDescription>

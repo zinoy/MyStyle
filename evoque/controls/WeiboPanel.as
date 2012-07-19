@@ -27,14 +27,15 @@
 		
 		private function go(e:MouseEvent):void
 		{
-			var req:URLRequest = new URLRequest("https://api.weibo.com/oauth2/authorize");
+			//var req:URLRequest = new URLRequest("https://api.weibo.com/oauth2/authorize");
 			var d:URLVariables = new URLVariables();
 			d.client_id = Shared.APP_KEY;
 			d.response_type = "code";
 			d.redirect_uri = ExternalInterface.call("getdomain") + Shared.REDIRECT_URL;
 			d.state = Math.random();
-			req.data = d;
-			navigateToURL(req);
+			//req.data = d;
+			//navigateToURL(req);
+			SWFAddress.popup("https://api.weibo.com/oauth2/authorize?"+d.toString());
 		}
 		
 		private function login(e:MouseEvent):void
