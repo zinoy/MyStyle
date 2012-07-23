@@ -93,6 +93,8 @@
 		
 		private function mainComplete(e:Event):void
 		{
+			_main.removeEventListener(ProgressEvent.PROGRESS,mainProgress);
+			_main.removeEventListener(Event.COMPLETE,mainComplete);
 			removeChild(_border);
 			removeChild(_progressbar);
 		}

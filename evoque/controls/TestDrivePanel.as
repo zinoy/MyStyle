@@ -41,8 +41,13 @@
 			_errmsg.x = 605;
 			_errmsg.y = 361.05;
 			
-			btnGo.addEventListener(MouseEvent.CLICK, go);
+			addEventListener(Event.ADDED_TO_STAGE, added);
 			btnClose.addEventListener(MouseEvent.CLICK, hide);
+		}
+		
+		private function added(e:Event):void
+		{
+			btnGo.addEventListener(MouseEvent.CLICK, go);
 		}
 		
 		private function go(e:MouseEvent):void
@@ -63,6 +68,7 @@
 			{
 				return;
 			}
+			btnGo.removeEventListener(MouseEvent.CLICK, go);
 			var req:URLRequest = new URLRequest(Shared.URL_BASE + "Action.aspx");
 			var d:URLVariables = new URLVariables();
 			d.ac = "td";
@@ -106,6 +112,9 @@
 			trace(xml);
 			if (xml.code == 0)
 			{
+				_tbname.text = "";
+				_tbmobile.text = "";
+				_tbmail.text = "";
 				hide(null);
 			}
 		}

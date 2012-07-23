@@ -170,6 +170,7 @@
 			if (_child != null && contains(_child))
 				removeChild(_child);
 			
+			showContent();
 			if (e is Event)
 			{
 				var loader:LoaderInfo = LoaderInfo(e.target);
@@ -180,7 +181,6 @@
 					_home = _child;
 					_home.alpha = 0;
 					TweenLite.to(_home, .4, {alpha:1,ease:Quad.easeOut});
-					showContent();
 					ui.homeview();
 				}
 				else
