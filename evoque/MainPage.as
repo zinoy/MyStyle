@@ -41,7 +41,6 @@
 		private function init():void
 		{
 			ExternalInterface.addCallback("set",setuid);
-			ExternalInterface.call("pv");
 			_user = new UserAction();
 			_success = new SuccessPanel();
 			
@@ -118,6 +117,7 @@
 					_gallery.addEventListener(ActionEvent.SHOW_FOOTBAR,showfoot);
 					_gallery.addEventListener(PhotoEvent.SHOW_DETAIL,showdetail);
 				}
+				ExternalInterface.call("pv", SWFAddress.getValue());
 				showgallery(null);
 			}
 			else
@@ -199,7 +199,7 @@
 		
 		private function gologin(e:MouseEvent):void
 		{
-			ExternalInterface.call("pe", "MainPage", "Click", "Login");
+			ExternalInterface.call("pe", "EMS", "MainPage", "Login");
 			_user.showpanel();
 			addChild(_user);
 			_user.alpha = 0;
@@ -208,7 +208,7 @@
 		
 		private function goreg(e:MouseEvent):void
 		{
-			ExternalInterface.call("pe", "MainPage", "Click", "Register");
+			ExternalInterface.call("pe", "EMS", "MainPage", "Register");
 			_user.showpanel("reg");
 			addChild(_user);
 			_user.alpha = 0;
@@ -217,7 +217,7 @@
 		
 		private function goexit(e:MouseEvent):void
 		{
-			ExternalInterface.call("pe", "MainPage", "Click", "Logout");
+			ExternalInterface.call("pe", "EMS", "MainPage", "Logout");
 			Shared.UID = "";
 			ubtns.show();
 		}
