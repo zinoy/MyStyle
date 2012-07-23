@@ -13,7 +13,7 @@
 		
 		private function init():void
 		{
-			ExternalInterface.call("pv", "home");
+			ExternalInterface.call("pv", "/home");
 		}
 
 	}

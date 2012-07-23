@@ -2,6 +2,7 @@
 {
 	import flash.display.*;
 	import flash.events.MouseEvent;
+	import flash.external.ExternalInterface;
 	import flash.net.*;
 
 	import evoque.controls.LightScrollBar;
@@ -21,6 +22,7 @@
 
 		private function init():void
 		{
+			ExternalInterface.call("pv", "/evoque");
 			_sbar1 = new LightScrollBar();
 			_sbar1.name = "sbar1";
 			_sbar1.addEventListener(ScrollEvent.SCROLL_UPDATE, updatescroll);

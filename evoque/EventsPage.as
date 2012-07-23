@@ -23,6 +23,7 @@
 		
 		private function init():void
 		{
+			ExternalInterface.call("pv", "/events");
 			td = new TestDrivePanel();
 			
 			sbar = new ColorScrollBar();
@@ -37,7 +38,7 @@
 		
 		private function showtd(e:MouseEvent):void
 		{
-			ExternalInterface.call("pe", "EventsPage", "Open", "TestDrive");
+			ExternalInterface.call("pe", "EMS", "EventsPage", "TestDrive");
 			addChild(td);
 			td.alpha = 0;
 			TweenLite.to(td, .4, {alpha:1,ease:Quad.easeOut});

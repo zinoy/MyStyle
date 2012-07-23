@@ -163,7 +163,7 @@
 		
 		private function share(e:MouseEvent):void
 		{
-			ExternalInterface.call("pe", "Showroom", "Detail", "SharePhoto");
+			ExternalInterface.call("pe", "EMS", "Showroom", "SharePhoto");
 			ExternalInterface.call("shareToWeibo","#不趋同 自趋势#路虎揽胜极光，融英伦灵感，焕瞩目风潮。",_params.img + "_big.jpg");
 		}
 		

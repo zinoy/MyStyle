@@ -73,26 +73,26 @@
 			switch (idx)
 			{
 				case 0:
-					ExternalInterface.call("pe", "MainMenu", "Click", "Home");
+					ExternalInterface.call("pe", "EMS", "MainMenu", "Home");
 					nav = "home";
 					break;
 				case 1:
-					ExternalInterface.call("pe", "MainMenu", "Click", "Rules");
+					ExternalInterface.call("pe", "EMS", "MainMenu", "Rules");
 					//_list[idx].active = false;
 					_list[_lastActive].active = true;
 					var evt:ActionEvent = new ActionEvent(ActionEvent.SHOW_RULES);
 					dispatchEvent(evt);
 					return;
 				case 2:
-					ExternalInterface.call("pe", "MainMenu", "Click", "Prize");
+					ExternalInterface.call("pe", "EMS", "MainMenu", "Prize");
 					nav = "prize";
 					break;
 				case 3:
-					ExternalInterface.call("pe", "MainMenu", "Click", "Showroom");
+					ExternalInterface.call("pe", "EMS", "MainMenu", "Showroom");
 					nav = "showroom";
 					break;
 				case 4:
-					ExternalInterface.call("pe", "MainMenu", "Click", "Evoque");
+					ExternalInterface.call("pe", "EMS", "MainMenu", "Evoque");
 					nav = "evoque";
 					break;
 				case 5:
