@@ -6,7 +6,7 @@
   <classTemplate>file:///F|/Users/Zino/AppData/Local/Adobe/Flash CS6/en_US/Configuration/ActionScript 3.0/Templates/standardClass_as3.as</classTemplate>
   <classPath>.</classPath>
   <defaultApp>file:///C|/GitHub/MyStyle/launcher.fla</defaultApp>
-  <rootURI>file:///C|/GitHub/MyStyle/</rootURI>
+  <rootURI>file:///D|/Works/Projects/flash/MyStyle/</rootURI>
   <flexSDK/>
   <sources editable="false"/>
   <libraries editable="false"/>
@@ -18,14 +18,18 @@
     <uri label="main.fla">file:///C|/GitHub/MyStyle/main.fla</uri>
   </compileList>
   <recentFiles editable="false">
-    <uri label="EventsPage.as">file:///C|/GitHub/MyStyle/evoque/EventsPage.as</uri>
-    <uri label="TestDrivePanel.as">file:///C|/GitHub/MyStyle/evoque/controls/TestDrivePanel.as</uri>
-    <uri label="events.fla">file:///C|/GitHub/MyStyle/events.fla</uri>
-    <uri label="launcher.fla">file:///C|/GitHub/MyStyle/launcher.fla</uri>
-    <uri label="HomePage.as">file:///C|/GitHub/MyStyle/evoque/HomePage.as</uri>
-    <uri label="Launcher.as">file:///C|/GitHub/MyStyle/evoque/Launcher.as</uri>
-    <uri label="MainPage.as">file:///C|/GitHub/MyStyle/evoque/MainPage.as</uri>
-    <uri label="VehiclePage.as">file:///C|/GitHub/MyStyle/evoque/VehiclePage.as</uri>
+    <uri label="TestDrivePanel.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/TestDrivePanel.as</uri>
+    <uri label="TextBox.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/TextBox.as</uri>
+    <uri label="SearchBar.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/SearchBar.as</uri>
+    <uri label="SuccessPanel.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/SuccessPanel.as</uri>
+    <uri label="Shared.as">file:///D|/Works/Projects/flash/MyStyle/evoque/common/Shared.as</uri>
+    <uri label="MainPage.as">file:///D|/Works/Projects/flash/MyStyle/evoque/MainPage.as</uri>
+    <uri label="PictureGrid.as">file:///D|/Works/Projects/flash/MyStyle/evoque/display/PictureGrid.as</uri>
+    <uri label="LoginPanel.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/LoginPanel.as</uri>
+    <uri label="WeiboPanel.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/WeiboPanel.as</uri>
+    <uri label="UserAction.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/UserAction.as</uri>
+    <uri label="events.swf">file:///D|/Works/Projects/flash/MyStyle/events.swf</uri>
+    <uri label="UploadAction.as">file:///D|/Works/Projects/flash/MyStyle/evoque/controls/UploadAction.as</uri>
   </recentFiles>
   <locations editable="false"/>
 </projectDescription>

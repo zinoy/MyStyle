@@ -73,6 +73,8 @@
 		private function setuid(val:String):void
 		{
 			Shared.UID = val;
+			Shared.isSinaUser = true;
+			Shared.friends = null;
 			removeChild(_user);
 			if (Shared.UID != "")
 			{
@@ -111,6 +113,7 @@
 				var idx:int = _path.indexOf(val[0]);
 				if (idx != _current)
 				{
+					loadChild(_path[0]);
 					_current = idx;
 					_gallery = new PictureGrid();
 					_gallery.addEventListener(ActionEvent.HIDE_CHILDREN,hideall);

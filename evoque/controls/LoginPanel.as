@@ -102,6 +102,8 @@
 			if (xml.code == 0)
 			{
 				Shared.UID = xml.uid;
+				Shared.isSinaUser = false;
+				Shared.friends = null;
 				var evt:UserEvent = new UserEvent(UserEvent.LOGIN_COMPLETE);
 				dispatchEvent(evt);
 				return;
