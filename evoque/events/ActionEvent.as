@@ -13,6 +13,7 @@
 		public static const HIDE_CHILDREN:String = "hideChildren";
 		public static const SHOW_FOOTBAR:String = "showFootbar";
 		public static const SHOW_RULES:String = "showRules";
+		public static const SHOW_LAW:String = "showLaw";
 		
 		private var _text:String;
 		

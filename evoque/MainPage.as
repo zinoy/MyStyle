@@ -27,6 +27,7 @@
 		private var _gallery:PictureGrid;
 		private var _detail:PhotoInfo;
 		private var _rules:RulePanel;
+		private var _law:LawPanel;
 		
 		private var _path:Array = ["home", "prize", "showroom", "evoque", "events"];
 		private var _current:int = -1;
@@ -64,6 +65,12 @@
 			_rules.y = (600 - _rules.height) / 2;
 			_rules.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
 			
+			_law = new LawPanel();
+			_law.x = (1000 - _law.width) / 2;
+			_law.y = (600 - 416) / 2;
+			_law.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
+			
+			foot.addEventListener(ActionEvent.SHOW_LAW,showlaw);
 			removeChild(ui);
 			ubtns.hide();
 			removeChild(foot);
@@ -238,6 +245,13 @@
 			addChild(_rules);
 			_rules.alpha = 0;
 			TweenLite.to(_rules, .4, {alpha:1,ease:Quad.easeOut});
+		}
+		
+		private function showlaw(e:ActionEvent):void
+		{
+			addChild(_law);
+			_law.alpha = 0;
+			TweenLite.to(_law, .4, {alpha:1,ease:Quad.easeOut});
 		}
 		
 		private function closepanel(e:ActionEvent):void
