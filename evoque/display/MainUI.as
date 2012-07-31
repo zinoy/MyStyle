@@ -84,7 +84,8 @@
 			nav.black.alpha = 1;
 			nav.white.alpha = 0;
 			uploadbg.alpha = 1;
-			removeChild(btnupload);
+			if (contains(btnupload))
+				removeChild(btnupload);
 			addChild(btnchild);
 			if (stage.stageWidth / 2 + (stage.stageWidth - 1000) / 2 < 626)
 				this.x = stage.stageWidth - 626 + (stage.stageWidth - 1000) / 2;

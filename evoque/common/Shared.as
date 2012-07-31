@@ -12,6 +12,7 @@
 		public static const IMAGE_PATH:String = "http://discover24hours.com/app/upload/";
 		
 		public static var UID:String = "";
+		public static var isSinaUser:Boolean = false;
 		public static var friends:Array;
 		public static var blankGrid:BitmapData;
 

@@ -32,6 +32,7 @@
 		private var _current:int = -1;
 		private var _home:DisplayObject;
 		private var _child:DisplayObject;
+		private var _loading:Preloader;
 
 		public function MainPage()
 		{
@@ -67,12 +68,18 @@
 			ubtns.hide();
 			removeChild(foot);
 			
+			_loading = new Preloader(1000, 600);
+			_loading.x = 500;
+			_loading.y = 300;
+			
 			SWFAddress.onChange = swfchange;
 		}
 		
 		private function setuid(val:String):void
 		{
 			Shared.UID = val;
+			Shared.isSinaUser = true;
+			Shared.friends = null;
 			removeChild(_user);
 			if (Shared.UID != "")
 			{
@@ -111,6 +118,8 @@
 				var idx:int = _path.indexOf(val[0]);
 				if (idx != _current)
 				{
+					if (_home == null)
+						loadChild(_path[0]);
 					_current = idx;
 					_gallery = new PictureGrid();
 					_gallery.addEventListener(ActionEvent.HIDE_CHILDREN,hideall);
@@ -122,16 +131,6 @@
 			}
 			else
 			{
-				if (_gallery != null && contains(_gallery))
-				{
-					removeChild(_gallery);//will use animation instead
-					addChild(border);
-					foot.thin();
-					foot.x = 0;
-					foot.y = 635;
-					addChild(ubtns);
-					ubtns.show();
-				}
 				loadChild(val[0]);
 			}
 		}
@@ -143,6 +142,7 @@
 			{
 				return;
 			}
+			addChild(_loading);
 			_current = next;
 			if (_current < 0)
 			{
@@ -169,8 +169,19 @@
 		{
 			if (_child != null && contains(_child))
 				removeChild(_child);
-			
+			if (_gallery != null && contains(_gallery))
+			{
+				removeChild(_gallery);//will use animation instead
+				addChild(border);
+				foot.thin();
+				foot.x = 0;
+				foot.y = 635;
+				addChild(ubtns);
+				ubtns.show();
+			}
 			showContent();
+			if (contains(_loading))
+				removeChild(_loading);
 			if (e is Event)
 			{
 				var loader:LoaderInfo = LoaderInfo(e.target);

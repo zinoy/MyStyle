@@ -86,7 +86,7 @@
 				case 2:
 					ExternalInterface.call("pe", "EMS", "MainMenu", "Prize");
 					nav = "prize";
-					break;
+					return;//will update after finish this page
 				case 3:
 					ExternalInterface.call("pe", "EMS", "MainMenu", "Showroom");
 					nav = "showroom";

@@ -32,6 +32,7 @@
 			addChild(_tbmobile);
 			_tbmobile.x = 414.3;
 			_tbmobile.y = 248.6;
+			_tbmobile.maxChars = 11;
 			_tbmail = new TextBox(true);
 			_tbmail.pattern = BuildInPatterns.EMAIL_ADDRESS;
 			addChild(_tbmail);

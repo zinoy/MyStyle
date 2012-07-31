@@ -1,15 +1,16 @@
 ﻿package evoque.controls
 {
-	import flash.display.Sprite;
+	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
 	import com.asual.swfaddress.SWFAddress;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
 	
+	import evoque.common.Shared;
 	import evoque.events.ActionEvent;
 
-	public class SuccessPanel extends Sprite
+	public class SuccessPanel extends MovieClip
 	{
 
 		public function SuccessPanel()
@@ -19,6 +20,14 @@
 		
 		private function init():void
 		{
+			if (Shared.isSinaUser)
+			{
+				gotoAndStop(1);
+			}
+			else
+			{
+				gotoAndStop(2);
+			}
 			btnClose.addEventListener(MouseEvent.CLICK,closepanel);
 			btnEvents.addEventListener(MouseEvent.CLICK,goevents);
 			btnUpload.addEventListener(MouseEvent.CLICK,goupload);

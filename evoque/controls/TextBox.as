@@ -23,7 +23,7 @@
 		private function init():void
 		{
 			_input = input;
-			
+			_input.maxChars = 255;
 			_input.borderColor = 0xf84c00;
 		}
 		
@@ -35,6 +35,11 @@
 		public function get text():String
 		{
 			return _input.text;
+		}
+		
+		public function set color(val:uint):void
+		{
+			_input.textColor = val;
 		}
 		
 		public function set text(val:String):void
@@ -63,6 +68,11 @@
 		public function set password(val:Boolean):void
 		{
 			_input.displayAsPassword = val;
+		}
+		
+		public function set pos(val:int):void
+		{
+			_input.setSelection(val, val);
 		}
 		
 		public function get isVaild():int

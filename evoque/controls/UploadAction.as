@@ -36,9 +36,20 @@
 			}
 			cate.alpha = .3;
 			weibo.alpha = .5;
-			weibo.btnupload.enabled = false;
-			weibo.btnat.enabled = false;
-			weibo.tbweibo.text = "#不趋同 自趋势# 输入宣言";
+			weibo.btnupload.buttonMode = true;
+			weibo.btnupload.mouseEnabled = false;
+			weibo.tbweibo.text = "#不趋同 自趋势#路虎揽胜极光，融英伦灵感，焕瞩目风潮。";
+			if (Shared.isSinaUser)
+			{
+				weibo.tbweibo.text += " http://t.cn/zWS77v4 ";
+				weibo.btnat.enabled = false;
+				weibo.btnupload.gotoAndStop(1);
+			}
+			else
+			{
+				weibo.removeChild(weibo.btnat);
+				weibo.btnupload.gotoAndStop(2);
+			}
 			weibo.tbweibo.type = TextFieldType.DYNAMIC;
 			weibo.tbweibo.selectable = false;
 			btnClose.addEventListener(MouseEvent.CLICK,closepanel);
@@ -82,18 +93,21 @@
 			}
 			obj.select();
 			weibo.alpha = 1;
-			weibo.btnupload.enabled = true;
+			weibo.btnupload.mouseEnabled = true;
 			weibo.btnat.enabled = true;
-			weibo.btnat.addEventListener(MouseEvent.CLICK,togglefriends);
 			weibo.btnupload.addEventListener(MouseEvent.CLICK,save);
 			weibo.tbweibo.type = TextFieldType.INPUT;
 			weibo.tbweibo.selectable = true;
-			weibo.tbweibo.setSelection(10, 14);
+			weibo.tbweibo.setSelection(28, 28);
 			stage.focus = weibo.tbweibo;
-			_friends = new FriendsList();
-			_friends.addEventListener(ActionEvent.ITEM_SELECTED,addfriend);
-			_friends.x = 286.5;
-			_friends.y = 101.45;
+			if (Shared.isSinaUser)
+			{
+				weibo.btnat.addEventListener(MouseEvent.CLICK,togglefriends);
+				_friends = new FriendsList();
+				_friends.addEventListener(ActionEvent.ITEM_SELECTED,addfriend);
+				_friends.x = 286.5;
+				_friends.y = 101.45;
+			}
 		}
 		
 		private function startedit(e:Event):void
@@ -224,6 +238,8 @@
 		{
 			weibo.btnupload.addEventListener(MouseEvent.CLICK,save);
 			trace(e);
+			var loader:URLLoader = URLLoader(e.target);
+			trace(loader.data);
 		}
 		
 		private function toggleButtonStatus(btn:SimpleButton):void

@@ -81,7 +81,7 @@
 			
 			addChild(obj);
 			addChild(_category);
-			_loading.maskWidth = obj.fitWidth;
+			_loading.drawSquareMask(obj.fitWidth);
 			removeChild(_loading);
 		}
 		
