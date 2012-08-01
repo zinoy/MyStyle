@@ -7,6 +7,11 @@
 	import flash.net.*;
 	import flash.utils.*;
 	
+	import away3dlite.cameras.*;
+	import away3dlite.containers.*;
+	import away3dlite.materials.*;
+	import away3dlite.primitives.*;
+	
 	import com.asual.swfaddress.SWFAddress;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
@@ -34,6 +39,14 @@
 		private var _home:DisplayObject;
 		private var _child:DisplayObject;
 		private var _loading:Preloader;
+		
+		//3D
+		private var _scene:Scene3D;
+		private var _camera:Camera3D;
+		private var _view:View3D;
+		private var _material:BitmapMaterial;
+		private var _cube:Cube6;
+		private var _screenList:Vector.<BitmapData>;
 
 		public function MainPage()
 		{
@@ -79,7 +92,22 @@
 			_loading.x = 500;
 			_loading.y = 300;
 			
+			init3D();
 			SWFAddress.onChange = swfchange;
+		}
+		
+		private function init3D():void
+		{
+			_scene = new Scene3D();
+			_camera = new Camera3D();
+			_camera.z = -1400;
+			_view = new View3D(_scene, _camera);
+			_material = new BitmapMaterial();
+			_material.smooth = true;
+			_cube = new Cube6(_material, 1000, 600, 1000);
+			
+			_scene.addChild(_cube);
+			_screenList = new Vector.<BitmapData>();
 		}
 		
 		private function setuid(val:String):void
@@ -149,6 +177,13 @@
 			{
 				return;
 			}
+			if (_home != null)
+			{
+				_screenList.splice(0,int.MAX_VALUE);
+				var sc:BitmapData = new BitmapData(1000, 600);
+				sc.draw(this);
+				_screenList.push(sc);
+			}
 			addChild(_loading);
 			_current = next;
 			if (_current < 0)
@@ -174,32 +209,33 @@
 		
 		private function showChild(e:*):void
 		{
+			var tmpScreen:Bitmap
 			if (_child != null && contains(_child))
-				removeChild(_child);
-			if (_gallery != null && contains(_gallery))
 			{
-				removeChild(_gallery);//will use animation instead
-				addChild(border);
-				foot.thin();
-				foot.x = 0;
-				foot.y = 635;
-				addChild(ubtns);
-				ubtns.show();
+				tmpScreen = new Bitmap(_screenList[0]);
+				addChildAt(tmpScreen, 0);
+				removeChild(_child);
+				//remove ui
+				removeChild(ubtns);
+				removeChild(ui);
 			}
-			showContent();
 			if (contains(_loading))
 				removeChild(_loading);
 			if (e is Event)
 			{
 				var loader:LoaderInfo = LoaderInfo(e.target);
 				_child = loader.content;
-				addChildAt(_child, 0);
+				//addChildAt(_child, 0);
 				if (_current == 0)
 				{
 					_home = _child;
+					addChildAt(_home, 0);
 					_home.alpha = 0;
 					TweenLite.to(_home, .4, {alpha:1,ease:Quad.easeOut});
 					ui.homeview();
+					showContent();
+					dispatchEvent(e.clone());
+					return;
 				}
 				else
 				{
@@ -210,9 +246,65 @@
 			else
 			{
 				_child = _home;
-				addChildAt(_home, 0);
+				//addChildAt(_home, 0);
 				ui.homeview();
 			}
+			if (_gallery != null && contains(_gallery))
+			{
+				removeChild(_gallery);//will use animation instead
+				addChild(border);
+				foot.thin();
+				foot.x = 0;
+				foot.y = 635;
+				addChild(ubtns);
+				addChildAt(_child, 0);
+				return;
+			}
+			
+			//3D transforme
+			var tmpStg:Sprite = new Sprite();
+			tmpStg.addChild(_child);
+			tmpStg.addChild(ui);
+			tmpStg.addChild(ubtns);
+			ubtns.show();
+			var sc:BitmapData = new BitmapData(1000, 600);
+			sc.draw(tmpStg);
+			_screenList.push(sc);
+			var ts:Shape = new Shape();
+			ts.graphics.beginBitmapFill(_screenList[0]);
+			ts.graphics.drawRect(0, 600, 1000, 600);
+			ts.graphics.beginBitmapFill(_screenList[1]);
+			ts.graphics.drawRect(0, 0, 1000, 600);
+			ts.graphics.drawRect(2000, 0, 1000, 600);
+			ts.graphics.endFill();
+			var texture:BitmapData = new BitmapData(3000, 1200);
+			texture.draw(ts);
+			_material.bitmap = texture;
+			addChild(_view);
+			_view.x = 500;
+			_view.y = 300;
+			removeChild(tmpScreen);
+			_cube.rotationY = 0;
+			if (_current == 0)
+				TweenLite.to(_cube, .5, {rotationY:-90,ease:Quad.easeOut,onComplete:end3D});
+			else
+				TweenLite.to(_cube, .5, {rotationY:90,ease:Quad.easeOut,onComplete:end3D});
+			addEventListener(Event.ENTER_FRAME, render3D);
+			//showContent();
+		}
+		
+		private function end3D():void
+		{
+			addChildAt(_child, 0);
+			removeChild(_view);
+			addChild(ubtns);
+			addChild(ui);
+			removeEventListener(Event.ENTER_FRAME, render3D);
+		}
+		
+		private function render3D(e:Event):void
+		{
+			_view.render();
 		}
 		
 		private function gologin(e:MouseEvent):void
@@ -360,7 +452,6 @@
 				removeChild(_child);
 			removeChild(ubtns);
 			removeChild(ui);
-			ubtns.hide();
 		}
 		
 		private function showfoot(e:ActionEvent):void

@@ -40,3 +40,4 @@ _ReSharper*/
 
 #ignore folder by zino
 [Tt]emp/
+.flashProjectProperties

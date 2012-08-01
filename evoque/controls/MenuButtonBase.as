@@ -29,7 +29,7 @@
 			}
 			else
 			{
-				TweenLite.to(hover, .2, {alpha:0, ease:Quad.easeOut});
+				hover.alpha = 0;
 			}
 		}
 		
