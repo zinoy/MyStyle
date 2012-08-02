@@ -75,7 +75,7 @@
 			
 			_rules = new RulePanel();
 			_rules.x = (1000 - _rules.width) / 2;
-			_rules.y = (600 - _rules.height) / 2;
+			_rules.y = (600 - 416) / 2;
 			_rules.addEventListener(ActionEvent.CLOSE_PANEL,closepanel);
 			
 			_law = new LawPanel();
@@ -290,6 +290,7 @@
 			else
 				TweenLite.to(_cube, .5, {rotationY:90,ease:Quad.easeOut,onComplete:end3D});
 			addEventListener(Event.ENTER_FRAME, render3D);
+			trace(_view.width, _view.height, _view.z);
 			//showContent();
 		}
 		

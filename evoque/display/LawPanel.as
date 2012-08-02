@@ -59,7 +59,7 @@
 		private function addedToStage(e:Event):void
 		{
 			_mask.graphics.clear();
-			_mask.graphics.beginFill(0, .5);
+			_mask.graphics.beginFill(0, .8);
 			_mask.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			_mask.graphics.endFill();
 			
