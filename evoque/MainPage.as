@@ -41,15 +41,13 @@
 		private var _loading:Preloader;
 		
 		//3D
-		private var _scene:Scene3D;
-		private var _camera:Camera3D;
-		private var _view:View3D;
-		private var _material:BitmapMaterial;
-		private var _cube:Cube6;
+		private var _cube:Cube;
 		private var _screenList:Vector.<BitmapData>;
 
 		public function MainPage()
 		{
+			root.transform.perspectiveProjection.fieldOfView = 30;
+			
 			init();
 		}
 		
@@ -98,15 +96,8 @@
 		
 		private function init3D():void
 		{
-			_scene = new Scene3D();
-			_camera = new Camera3D();
-			_camera.z = -1400;
-			_view = new View3D(_scene, _camera);
-			_material = new BitmapMaterial();
-			_material.smooth = true;
-			_cube = new Cube6(_material, 1000, 600, 1000);
+			_cube = new Cube();
 			
-			_scene.addChild(_cube);
 			_screenList = new Vector.<BitmapData>();
 		}
 		
@@ -183,8 +174,8 @@
 				var sc:BitmapData = new BitmapData(1000, 600);
 				sc.draw(this);
 				_screenList.push(sc);
+				addChild(_loading);
 			}
-			addChild(_loading);
 			_current = next;
 			if (_current < 0)
 			{
@@ -261,7 +252,7 @@
 				return;
 			}
 			
-			//3D transforme
+			//3D Transition
 			var tmpStg:Sprite = new Sprite();
 			tmpStg.addChild(_child);
 			tmpStg.addChild(ui);
@@ -270,42 +261,33 @@
 			var sc:BitmapData = new BitmapData(1000, 600);
 			sc.draw(tmpStg);
 			_screenList.push(sc);
-			var ts:Shape = new Shape();
-			ts.graphics.beginBitmapFill(_screenList[0]);
-			ts.graphics.drawRect(0, 600, 1000, 600);
-			ts.graphics.beginBitmapFill(_screenList[1]);
-			ts.graphics.drawRect(0, 0, 1000, 600);
-			ts.graphics.drawRect(2000, 0, 1000, 600);
-			ts.graphics.endFill();
-			var texture:BitmapData = new BitmapData(3000, 1200);
-			texture.draw(ts);
-			_material.bitmap = texture;
-			addChild(_view);
-			_view.x = 500;
-			_view.y = 300;
+			_cube.setSides(_screenList[0], _screenList[1]);
+			addChild(_cube);
+			_cube.x = 500;
+			_cube.y = 300;
+			_cube.z = 500;
 			removeChild(tmpScreen);
 			_cube.rotationY = 0;
-			if (_current == 0)
-				TweenLite.to(_cube, .5, {rotationY:-90,ease:Quad.easeOut,onComplete:end3D});
-			else
-				TweenLite.to(_cube, .5, {rotationY:90,ease:Quad.easeOut,onComplete:end3D});
+			TweenLite.to(_cube, .8, {rotationY:90,ease:Quad.easeOut,onComplete:end3D});
 			addEventListener(Event.ENTER_FRAME, render3D);
-			trace(_view.width, _view.height, _view.z);
 			//showContent();
 		}
 		
 		private function end3D():void
 		{
 			addChildAt(_child, 0);
-			removeChild(_view);
+			removeChild(_cube);
 			addChild(ubtns);
 			addChild(ui);
-			removeEventListener(Event.ENTER_FRAME, render3D);
 		}
 		
 		private function render3D(e:Event):void
 		{
-			_view.render();
+			if (_cube.rotationY > 45)
+			{
+				_cube.swapSides();
+				removeEventListener(Event.ENTER_FRAME, render3D);
+			}
 		}
 		
 		private function gologin(e:MouseEvent):void
