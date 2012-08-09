@@ -268,7 +268,10 @@
 			_cube.z = 500;
 			removeChild(tmpScreen);
 			_cube.rotationY = 0;
-			TweenLite.to(_cube, .8, {rotationY:90,ease:Quad.easeOut,onComplete:end3D});
+			if (_current == 0)
+				TweenLite.to(_cube, .8, {rotationY:-90,ease:Quad.easeOut,onComplete:end3D});
+			else
+				TweenLite.to(_cube, .8, {rotationY:90,ease:Quad.easeOut,onComplete:end3D});
 			addEventListener(Event.ENTER_FRAME, render3D);
 			//showContent();
 		}
@@ -286,6 +289,11 @@
 			if (_cube.rotationY > 45)
 			{
 				_cube.swapSides();
+				removeEventListener(Event.ENTER_FRAME, render3D);
+			}
+			else if (_cube.rotationY < -45)
+			{
+				_cube.swapLeft();
 				removeEventListener(Event.ENTER_FRAME, render3D);
 			}
 		}
