@@ -96,6 +96,12 @@
 			}*/
 			swapside();
 		}
+		
+		public function hide(duration:Number=.4):void
+		{
+			TweenLite.to(_forntside, duration, {alpha:.5, scaleX:0, scaleY:0, ease:Quad.easeOut});
+			TweenLite.to(_backside, duration, {alpha:.5, scaleX:0, scaleY:0, ease:Quad.easeOut});
+		}
 				
 	}
 

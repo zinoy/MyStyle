@@ -36,6 +36,7 @@
 		
 		private var _path:Array = ["home", "prize", "showroom", "evoque", "events"];
 		private var _current:int = -1;
+		private var _isFirst:Boolean = true;
 		private var _home:DisplayObject;
 		private var _child:DisplayObject;
 		private var _loading:Preloader;
@@ -144,7 +145,7 @@
 				var idx:int = _path.indexOf(val[0]);
 				if (idx != _current)
 				{
-					if (_home == null)
+					if (_isFirst)
 						loadChild(_path[0]);
 					_current = idx;
 					_gallery = new PictureGrid();
@@ -153,6 +154,8 @@
 					_gallery.addEventListener(PhotoEvent.SHOW_DETAIL,showdetail);
 				}
 				ExternalInterface.call("pv", SWFAddress.getValue());
+				var evt:Event = new Event(Event.COMPLETE);
+				dispatchEvent(evt);
 				showgallery(null);
 			}
 			else
@@ -168,7 +171,7 @@
 			{
 				return;
 			}
-			if (_home != null)
+			if (!_isFirst)
 			{
 				_screenList.splice(0,int.MAX_VALUE);
 				var sc:BitmapData = new BitmapData(1000, 600);
@@ -219,6 +222,7 @@
 				//addChildAt(_child, 0);
 				if (_current == 0)
 				{
+					_isFirst = false;
 					_home = _child;
 					addChildAt(_home, 0);
 					_home.alpha = 0;
@@ -231,6 +235,14 @@
 				else
 				{
 					ui.childview();
+					if (_isFirst)
+					{
+						_isFirst = false;
+						addChildAt(_child, 0);
+						showContent();
+						dispatchEvent(e.clone());
+						return;
+					}
 				}
 				dispatchEvent(e.clone());
 			}
@@ -242,7 +254,7 @@
 			}
 			if (_gallery != null && contains(_gallery))
 			{
-				removeChild(_gallery);//will use animation instead
+				_gallery.close(galleryClosed);
 				addChild(border);
 				foot.thin();
 				foot.x = 0;
@@ -274,6 +286,11 @@
 				TweenLite.to(_cube, .8, {rotationY:90,ease:Quad.easeOut,onComplete:end3D});
 			addEventListener(Event.ENTER_FRAME, render3D);
 			//showContent();
+		}
+		
+		private function galleryClosed():void
+		{
+			removeChild(_gallery);
 		}
 		
 		private function end3D():void

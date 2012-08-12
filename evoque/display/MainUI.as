@@ -83,7 +83,7 @@
 			nav.x = nav.y = 23;
 			nav.black.alpha = 1;
 			nav.white.alpha = 0;
-			uploadbg.alpha = 1;
+			uploadbg.alpha = 0;
 			if (contains(btnupload))
 				removeChild(btnupload);
 			addChild(btnchild);
@@ -115,6 +115,7 @@
 				TweenLite.to(count, .4, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[count]});
 				TweenLite.to(nav, .4, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[nav]});
 				TweenLite.to(btnchild, .4, {alpha:0,ease:Quad.easeOut,onComplete:removeChild,onCompleteParams:[btnchild]});
+				TweenLite.to(uploadbg, .4, {alpha:0,ease:Quad.easeOut});
 				TweenLite.to(this, .4, {y:this.y + 72,ease:Quad.easeOut});
 			}
 			else
@@ -122,6 +123,7 @@
 				addChild(btnchild);
 				btnchild.alpha = 0;
 				TweenLite.to(btnchild, .4, {alpha:1,ease:Quad.easeOut});
+				TweenLite.to(uploadbg, .4, {alpha:1,ease:Quad.easeOut});
 				addChild(count);
 				count.show("left");
 				count.alpha = 0;
