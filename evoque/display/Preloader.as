@@ -22,7 +22,7 @@
 			if (val > 0)
 			{
 				_mask.graphics.clear();
-				_mask.graphics.beginFill(0,.5);
+				_mask.graphics.beginFill(0,.68);
 				_mask.graphics.drawRect(0,0,val,val);
 				_mask.graphics.endFill();
 				addChildAt(_mask, 0);
@@ -38,7 +38,7 @@
 				h = width;
 			}
 			_mask.graphics.clear();
-			_mask.graphics.beginFill(0,.5);
+			_mask.graphics.beginFill(0,.68);
 			_mask.graphics.drawRect(0,0,width,h);
 			_mask.graphics.endFill();
 			addChildAt(_mask, 0);

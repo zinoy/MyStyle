@@ -331,8 +331,8 @@
 			{
 				s.hide();
 			}
-			TweenLite.to(_category, .2, {y:(stage.stageHeight - 600) / -2 - _category.height, ease:Back.easeIn});
-			TweenLite.to(_search, .2, {y:(stage.stageHeight - 600) / -2 - _search.height, ease:Back.easeIn});
+			TweenLite.to(_category, .4, {y:(stage.stageHeight - 600) / -2 - _category.height, ease:Back.easeIn});
+			TweenLite.to(_search, .4, {y:(stage.stageHeight - 600) / -2 - _search.height, ease:Back.easeIn});
 			TweenLite.delayedCall(.6, callback);
 		}
 

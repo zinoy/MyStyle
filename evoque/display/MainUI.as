@@ -43,8 +43,11 @@
 			if (contains(btnchild))
 				removeChild(btnchild);
 			addChild(count);
+			count.alpha = 1;
 			addChild(nav);
+			nav.alpha = 1;
 			addChild(btnupload);
+			btnupload.alpha = 1;
 			this.x = 275;
 			this.y = 358;
 			removeEventListener(Event.ENTER_FRAME, autohide);
@@ -67,8 +70,11 @@
 			if (contains(btnupload))
 				removeChild(btnupload);
 			addChild(btnchild);
+			btnchild.alpha = 1;
 			addChild(count);
+			count.alpha = 1;
 			addChild(nav);
+			nav.alpha = 1;
 			this.x = 374;
 			this.y = 459;
 			removeEventListener(Event.ENTER_FRAME, autohide);
