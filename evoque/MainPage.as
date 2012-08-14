@@ -204,6 +204,7 @@
 		private function showChild(e:*):void
 		{
 			var tmpScreen:Bitmap
+			ui.nav.setCurrent(_current);
 			if (_child != null && contains(_child))
 			{
 				tmpScreen = new Bitmap(_screenList[0]);
@@ -402,6 +403,7 @@
 		
 		private function showgallery(e:ActionEvent):void
 		{
+			ui.nav.setCurrent(_current);
 			addChildAt(_gallery,0);
 			_gallery.show();
 		}

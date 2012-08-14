@@ -40,7 +40,7 @@
 			_blackBg.graphics.endFill();
 			addChildAt(_blackBg, 1);
 
-			_list = new <MenuButtonBase>[navHome,navRules,navPrize,navShowroom,navEvoque,navEvents];
+			_list = new <MenuButtonBase>[navHome,navPrize,navShowroom,navEvoque,navEvents,navRules];
 			for each (var it:MenuButtonBase in _list)
 			{
 				it.addEventListener(MouseEvent.CLICK,gonav);
@@ -66,7 +66,7 @@
 		
 		private function gonav(e:MouseEvent):void
 		{
-			hideActive();
+			//hideActive();
 
 			var idx:int = _list.indexOf(e.currentTarget as MenuButtonBase);
 			var nav:String;
@@ -76,33 +76,33 @@
 					ExternalInterface.call("pe", "EMS", "MainMenu", "Home");
 					nav = "home";
 					break;
-				case 1:
+				case 5:
 					ExternalInterface.call("pe", "EMS", "MainMenu", "Rules");
 					//_list[idx].active = false;
 					_list[_lastActive].active = true;
 					var evt:ActionEvent = new ActionEvent(ActionEvent.SHOW_RULES);
 					dispatchEvent(evt);
 					return;
-				case 2:
+				case 1:
 					ExternalInterface.call("pe", "EMS", "MainMenu", "Prize");
 					nav = "prize";
 					return;//will update after finish this page
-				case 3:
+				case 2:
 					ExternalInterface.call("pe", "EMS", "MainMenu", "Showroom");
 					nav = "showroom";
 					break;
-				case 4:
+				case 3:
 					ExternalInterface.call("pe", "EMS", "MainMenu", "Evoque");
 					nav = "evoque";
 					break;
-				case 5:
+				case 4:
 					ExternalInterface.call("pe", "MainMenu", "Click", "Events");
 					nav = "events";
 					break;
 				default:
 					return;
 			}
-			_list[idx].active = true;
+			//_list[idx].active = true;
 			SWFAddress.setValue(nav);
 		}
 		
