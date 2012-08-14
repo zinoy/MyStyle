@@ -177,6 +177,7 @@
 				var sc:BitmapData = new BitmapData(1000, 600);
 				sc.draw(this);
 				_screenList.push(sc);
+				_loading.drawMask(stage.stageWidth, stage.stageHeight);
 				addChild(_loading);
 			}
 			_current = next;
