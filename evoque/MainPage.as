@@ -224,29 +224,23 @@
 				//addChildAt(_child, 0);
 				if (_current == 0)
 				{
-					_isFirst = false;
 					_home = _child;
-					addChildAt(_home, 0);
-					_home.alpha = 0;
-					TweenLite.to(_home, .4, {alpha:1,ease:Quad.easeOut});
 					ui.homeview();
-					showContent();
-					dispatchEvent(e.clone());
-					return;
 				}
 				else
 				{
 					ui.childview();
-					if (_isFirst)
-					{
-						_isFirst = false;
-						addChildAt(_child, 0);
-						showContent();
-						dispatchEvent(e.clone());
-						return;
-					}
 				}
 				dispatchEvent(e.clone());
+				if (_isFirst)
+				{
+					_isFirst = false;
+					addChildAt(_child, 0);
+					_child.alpha = 0;
+					TweenLite.to(_child, .4, {alpha:1,ease:Quad.easeOut});
+					showContent();
+					return;
+				}
 			}
 			else
 			{

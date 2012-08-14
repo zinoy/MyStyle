@@ -34,6 +34,7 @@
 			dot.graphics.endFill();
 			
 			addChild(dot);
+			this.alpha = 1;
 		}
 		
 	}

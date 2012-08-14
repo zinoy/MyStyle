@@ -45,7 +45,6 @@
 			{
 				it.addEventListener(MouseEvent.CLICK,gonav);
 			}
-			_list[0].active = true;
 		}
 		
 		public function get black():Shape
