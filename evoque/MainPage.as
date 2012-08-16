@@ -187,6 +187,7 @@
 			}
 			else if (_current == 0 && _home != null)
 			{
+				ExternalInterface.call("pv", "/home");
 				showChild(0)
 				return;
 			}
@@ -204,7 +205,7 @@
 		
 		private function showChild(e:*):void
 		{
-			var tmpScreen:Bitmap
+			var tmpScreen:Bitmap;
 			ui.nav.setCurrent(_current);
 			if (_child != null && contains(_child))
 			{

@@ -1,5 +1,6 @@
 ﻿package evoque.common
 {
+	import flash.geom.Point;
 
 	public class SquareSize
 	{
@@ -40,6 +41,11 @@
 		public function get contentLength():int
 		{
 			return _col * (_row - 2);
+		}
+		
+		public function getIndexAt(point:Point):int
+		{
+			return point.y * _col + point.x;
 		}
 		
 	}

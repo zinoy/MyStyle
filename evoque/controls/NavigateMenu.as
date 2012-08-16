@@ -73,6 +73,7 @@
 			{
 				case 0:
 					ExternalInterface.call("pe", "EMS", "MainMenu", "Home");
+					ExternalInterface.call("pv", "/home");
 					nav = "home";
 					break;
 				case 5:

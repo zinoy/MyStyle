@@ -185,7 +185,7 @@
 								var p:PhotoItem = new PhotoItem({type:imglist[count].type, user:imglist[count].sina_name,text:imglist[count].comment,img:Shared.IMAGE_PATH + imglist[count].img});
 								p.addEventListener(MouseEvent.CLICK,showdetail);
 								p.point = new Point(rect.x + j * _cellwidth, rect.y + i * _cellwidth);
-								_picloader.append(new ImageLoader(Shared.IMAGE_PATH + imglist[count].img + "_small.jpg", {name:"pic"+imglist.id, width:_cellwidth, height:_cellwidth, crop:true, scaleMode:ScaleMode.PROPORTIONAL_OUTSIDE, centerRegistration:true, onComplete:p.complete}));
+								_picloader.append(new ImageLoader(Shared.IMAGE_PATH + imglist[count].img + "_small.jpg", {name:"pic"+imglist[count].id, width:_cellwidth, height:_cellwidth, crop:true, scaleMode:ScaleMode.PROPORTIONAL_OUTSIDE, centerRegistration:true, onComplete:p.complete}));
 								f = new FlipItem(s,p,_cellwidth);
 								count++;
 							}
@@ -282,7 +282,7 @@
 							{
 								var p:PhotoItem = new PhotoItem({type:imglist[count].type, user:imglist[count].sina_name,text:imglist[count].comment,img:Shared.IMAGE_PATH + imglist[count].img});
 								p.addEventListener(MouseEvent.CLICK,showdetail);
-								_picloader.append(new ImageLoader(Shared.IMAGE_PATH + imglist[count].img + "_small.jpg", {name:"pic"+imglist.id, width:_cellwidth, height:_cellwidth, crop:true, scaleMode:ScaleMode.PROPORTIONAL_OUTSIDE, centerRegistration:true, onComplete:p.complete}));
+								_picloader.append(new ImageLoader(Shared.IMAGE_PATH + imglist[count].img + "_small.jpg", {name:"pic"+imglist[count].id, width:_cellwidth, height:_cellwidth, crop:true, scaleMode:ScaleMode.PROPORTIONAL_OUTSIDE, centerRegistration:true, onComplete:p.complete}));
 								f = _squares[(i * _dimension.column) + j];
 								p.point = new Point(f.x, f.y);
 								f.backobj = p;

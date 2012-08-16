@@ -11,7 +11,13 @@
 
 		public function Utility()
 		{
-			// constructor code
+			throw new SecurityError("Unable to instantiation class.");
+		}
+
+		public static function rand(High:int,Low:int=0):Number
+		{
+			High--;
+			return Math.floor(Math.random()*(1+High-Low))+Low;
 		}
 
 		public static function shuffle(arr:Array):Array
