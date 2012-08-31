@@ -66,9 +66,9 @@
 			_detail.addEventListener(MouseEvent.ROLL_OUT,hidedetail);
 			_detail.addEventListener(Event.COMPLETE,loaddetail);
 
-			ubtns.mainLogin.addEventListener(MouseEvent.CLICK,gologin);
-			ubtns.mainReg.addEventListener(MouseEvent.CLICK,goreg);
-			ubtns.mainLogout.addEventListener(MouseEvent.CLICK,goexit);
+			//ubtns.mainLogin.addEventListener(MouseEvent.CLICK,gologin);
+			//ubtns.mainReg.addEventListener(MouseEvent.CLICK,goreg);
+			//ubtns.mainLogout.addEventListener(MouseEvent.CLICK,goexit);
 			ui.addEventListener(ActionEvent.UPLOAD_MORE,goupload);
 			ui.addEventListener(ActionEvent.SHOW_RULES,showrules);
 			
@@ -84,7 +84,7 @@
 			
 			foot.addEventListener(ActionEvent.SHOW_LAW,showlaw);
 			removeChild(ui);
-			ubtns.hide();
+			//ubtns.hide();
 			removeChild(foot);
 			
 			_loading = new Preloader(1000, 600);
@@ -110,7 +110,7 @@
 			removeChild(_user);
 			if (Shared.UID != "")
 			{
-				ubtns.show();
+				//ubtns.show();
 				if (_uploadPicAfterLogin)
 				{
 					_uploadPicAfterLogin = false;
@@ -128,7 +128,7 @@
 			foot.alpha = 0;
 			TweenLite.to(ui, .4, {alpha:1,ease:Quad.easeOut});
 			TweenLite.to(foot, .3, {alpha:1,delay:.3,ease:Quad.easeOut});
-			TweenLite.delayedCall(.6, ubtns.show);
+			//TweenLite.delayedCall(.6, ubtns.show);
 		}
 		
 		private function swfchange():void
@@ -213,7 +213,7 @@
 				addChildAt(tmpScreen, 0);
 				removeChild(_child);
 				//remove ui
-				removeChild(ubtns);
+				//removeChild(ubtns);
 				removeChild(ui);
 			}
 			if (contains(_loading))
@@ -256,7 +256,7 @@
 				foot.thin();
 				foot.x = 0;
 				foot.y = 635;
-				addChild(ubtns);
+				//addChild(ubtns);
 				addChildAt(_child, 0);
 				return;
 			}
@@ -265,8 +265,8 @@
 			var tmpStg:Sprite = new Sprite();
 			tmpStg.addChild(_child);
 			tmpStg.addChild(ui);
-			tmpStg.addChild(ubtns);
-			ubtns.show();
+			//tmpStg.addChild(ubtns);
+			//ubtns.show();
 			var sc:BitmapData = new BitmapData(1000, 600);
 			sc.draw(tmpStg);
 			_screenList.push(sc);
@@ -294,7 +294,7 @@
 		{
 			addChildAt(_child, 0);
 			removeChild(_cube);
-			addChild(ubtns);
+			//addChild(ubtns);
 			addChild(ui);
 		}
 		
@@ -334,7 +334,7 @@
 		{
 			ExternalInterface.call("pe", "EMS", "MainPage", "Logout");
 			Shared.UID = "";
-			ubtns.show();
+			//ubtns.show();
 		}
 		
 		private function showrules(e:ActionEvent):void
@@ -357,7 +357,7 @@
 			removeChild(obj);
 			if (Shared.UID != "")
 			{
-				ubtns.show();
+				//ubtns.show();
 				if (_uploadPicAfterLogin)
 				{
 					_uploadPicAfterLogin = false;
@@ -368,7 +368,7 @@
 		
 		private function goupload(e:ActionEvent):void
 		{
-			if (_gallery != null && contains(_gallery))
+			/*if (_gallery != null && contains(_gallery))
 			{
 				SWFAddress.setValue(_path[0]);
 				ui.setnav(0);
@@ -386,7 +386,7 @@
 			{
 				gologin(null);
 				_uploadPicAfterLogin = true;
-			}
+			}*/
 		}
 		
 		private function showsuccess(e:ActionEvent):void
@@ -456,7 +456,7 @@
 				removeChild(_home);
 			if (_child != null && contains(_child))
 				removeChild(_child);
-			removeChild(ubtns);
+			//removeChild(ubtns);
 			removeChild(ui);
 		}
 		

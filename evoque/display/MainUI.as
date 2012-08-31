@@ -25,8 +25,10 @@
 			btnopen.mouseChildren = false;
 			
 			btnopen.addEventListener(MouseEvent.CLICK, togglemini);
-			btnupload.addEventListener(MouseEvent.CLICK, goupload);
-			btnchild.addEventListener(MouseEvent.CLICK, goupload);
+			btnupload.enabled = false;
+			btnchild.enabled = false;
+			//btnupload.addEventListener(MouseEvent.CLICK, goupload);
+			//btnchild.addEventListener(MouseEvent.CLICK, goupload);
 			nav.addEventListener(ActionEvent.SHOW_RULES,showrules);
 		}
 		
